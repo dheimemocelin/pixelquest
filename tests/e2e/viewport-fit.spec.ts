@@ -35,6 +35,29 @@ test("adventure and temple screens fit the viewport without page scrolling", asy
   }
 });
 
+test("mobile expand control enlarges the board when native fullscreen is unavailable", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.addInitScript(() => {
+    Object.defineProperty(Element.prototype, "requestFullscreen", {
+      configurable: true,
+      value: undefined,
+    });
+  });
+  await page.goto("/");
+  await page.locator(".home-stage button.primary.jumbo").click();
+  await page.getByRole("button", { name: "Entrar na floresta" }).click();
+
+  const board = page.locator(".board-wrap");
+  const initialHeight = (await board.boundingBox())!.height;
+  await page.getByRole("button", { name: "Ampliar área do jogo" }).click();
+  await expect(page.locator(".app.page-game")).toHaveClass(/focus-mode/);
+  expect((await board.boundingBox())!.height).toBeGreaterThan(initialHeight + 50);
+  await expectNoPageScroll(page);
+
+  await page.getByRole("button", { name: "Reduzir área do jogo" }).click();
+  await expect(page.locator(".app.page-game")).not.toHaveClass(/focus-mode/);
+});
+
 async function expectNoPageScroll(page: import("@playwright/test").Page) {
   const dimensions = await page.evaluate(() => ({
     viewportWidth: window.innerWidth,

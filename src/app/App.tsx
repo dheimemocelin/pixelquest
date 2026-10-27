@@ -208,7 +208,7 @@ export default function App() {
           {(page === "game" || page === "temple") && (
             <button
               className="icon-button fullscreen-button"
-              aria-label={nativeFullscreen || focusMode ? "Sair da tela cheia" : "Ativar tela cheia"}
+              aria-label={nativeFullscreen || focusMode ? "Reduzir área do jogo" : "Ampliar área do jogo"}
               aria-pressed={nativeFullscreen || focusMode}
               onClick={() => void toggleFullscreen()}
             >

@@ -1372,6 +1372,17 @@ dialog button:focus-visible {
   height: 100dvh;
   overflow: hidden;
 }
+/* On iPhone Safari, the Fullscreen API is unavailable. The same control then
+   switches to an in-page expanded layout that gives the playfield more room. */
+.app.page-game.focus-mode,
+.app.page-temple.focus-mode {
+  --topbar-height: 48px;
+}
+.focus-mode .topbar { padding-top: 4px; padding-bottom: 4px; }
+.focus-mode .brand > span:not(.brand-mark),
+.focus-mode .header-caption { display: none; }
+.focus-mode .brand-mark { width: 38px; height: 38px; }
+.focus-mode .icon-button { width: 38px; height: 38px; }
 .temple-layout { grid-template-rows: minmax(0, 1fr); }
 .temple-challenge { min-height: 0; max-height: 100%; overflow: hidden; }
 .multiple-choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1612,6 +1623,15 @@ dialog button:focus-visible {
   .page-home .hero-copy { padding-top: clamp(18px, 5vh, 38px); }
   .page-home .world-canvas.home { top: calc(100% - 610px); }
   .page-home .hero-name { display: none; }
+  .app.page-game.focus-mode .game-page,
+  .app.page-temple.focus-mode .temple-game { padding: 4px 8px 2px; }
+  .app.page-game.focus-mode .game-layout,
+  .app.page-temple.focus-mode .temple-layout {
+    grid-template-rows: minmax(210px, 38dvh) minmax(0, 1fr);
+    gap: 4px;
+  }
+  .app.page-game.focus-mode .adventure-heading,
+  .app.page-temple.focus-mode .temple-heading { margin-bottom: 3px; }
 }
 @media (max-width: 760px) and (max-height: 700px) {
   .game-layout,
@@ -1625,4 +1645,8 @@ dialog button:focus-visible {
   .page-home .hero-copy .text-button { min-height: 37px; margin-top: 2px; }
   .page-home .hero-name { bottom: 56px; }
   .page-home .home-bottom { padding-top: 5px; padding-bottom: 5px; }
+  .app.page-game.focus-mode .game-layout,
+  .app.page-temple.focus-mode .temple-layout {
+    grid-template-rows: minmax(175px, 34dvh) minmax(0, 1fr);
+  }
 }

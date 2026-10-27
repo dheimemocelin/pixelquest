@@ -71,8 +71,8 @@ test("arrow keys navigate temple answers and fullscreen can be toggled", async (
   await expect(page.getByRole("button", { name: "Escolher BOCA" })).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.getByRole("button", { name: "Escolher BOCA" })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: "Ativar tela cheia" }).click();
-  await expect(page.getByRole("button", { name: "Sair da tela cheia" })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: "Sair da tela cheia" }).click();
-  await expect(page.getByRole("button", { name: "Ativar tela cheia" })).toHaveAttribute("aria-pressed", "false");
+  await page.getByRole("button", { name: "Ampliar área do jogo" }).click();
+  await expect(page.getByRole("button", { name: "Reduzir área do jogo" })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Reduzir área do jogo" }).click();
+  await expect(page.getByRole("button", { name: "Ampliar área do jogo" })).toHaveAttribute("aria-pressed", "false");
 });
