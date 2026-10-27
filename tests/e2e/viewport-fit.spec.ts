@@ -22,7 +22,7 @@ test("adventure and temple screens fit the viewport without page scrolling", asy
     await expect(page.getByRole("heading", { name: "Primeiros Passos" })).toBeVisible();
     await expectNoPageScroll(page);
     if (viewport.width <= 760) {
-      expect((await page.locator(".board-wrap").boundingBox())?.height ?? 0).toBeGreaterThan(110);
+      expect((await page.locator(".board-wrap").boundingBox())?.height ?? 0).toBeGreaterThan(viewport.height * 0.25);
     }
 
     await page.getByRole("button", { name: "Voltar ao mapa" }).click();
