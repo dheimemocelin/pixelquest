@@ -14,6 +14,13 @@
 * {
   box-sizing: border-box;
 }
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 body {
   margin: 0;
   min-width: 360px;
@@ -55,7 +62,23 @@ main {
   margin: auto;
 }
 .app {
-  min-height: 100vh;
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+main {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.home-stage,
+.map-stage {
+  height: 100%;
+  min-height: 0;
 }
 .topbar {
   height: 88px;
@@ -124,7 +147,7 @@ main {
 .home-stage,
 .map-stage {
   position: relative;
-  min-height: 760px;
+  min-height: 0;
   overflow: hidden;
   background: #193e36;
 }
@@ -275,7 +298,7 @@ main {
   letter-spacing: 2px;
 }
 .map-stage {
-  min-height: 760px;
+  min-height: 0;
 }
 .map-heading {
   position: relative;
@@ -1518,3 +1541,62 @@ dialog button:focus-visible {
 .game-layout { align-items: stretch; }
 .page-game > main,
 .page-temple > main { width: 100%; max-width: none; margin: 0; }
+
+/* Every scene, including the opening and world map, fits the visible screen. */
+.topbar { flex: 0 0 var(--topbar-height); }
+.home-stage,
+.map-stage { height: 100%; min-height: 0; }
+.home-stage { min-height: 0; }
+.hero-name { top: auto; bottom: 112px; }
+.map-heading { padding-top: clamp(18px, 4vh, 44px); padding-bottom: clamp(14px, 3vh, 34px); }
+.map-stage .forest-node { top: 34%; }
+.map-stage .temple-node { top: 47%; }
+.back-map { bottom: 10px; }
+
+@media (max-width: 760px) {
+  .home-stage,
+  .map-stage { min-height: 0; }
+  .home-stage { height: 100%; }
+  .hero-copy { padding-top: clamp(18px, 5vh, 45px); }
+  .hero-name { right: 7%; bottom: 83px; left: auto; top: auto; }
+  .home-bottom { padding-top: 10px; padding-bottom: 10px; }
+  .map-heading { padding: 12px 12px 8px; }
+  .map-heading h1 { margin: 4px 0; font-size: clamp(23px, 7vw, 29px); }
+  .map-heading p { font-size: 10px; }
+  .map-stage .forest-node,
+  .map-stage .temple-node {
+    right: 7%;
+    left: 7%;
+    padding: 9px 12px;
+    gap: 10px;
+  }
+  .map-stage .forest-node { top: 24%; }
+  .map-stage .temple-node { top: 59%; }
+  .world-node h2,
+  .temple-node h2 { margin: 4px 0; font-size: 19px; }
+  .world-node p { margin-bottom: 6px; font-size: 10px; }
+  .world-node .primary { min-height: 38px; padding: 7px 10px; font-size: 11px; }
+  .world-node small { margin-top: 6px; font-size: 9px; }
+  .world-number { font-size: 22px; height: 32px; }
+  .map-stage .coming { display: inline-block; padding: 3px 6px; font-size: 7px; }
+  .back-map { min-height: 36px; padding: 7px 12px; font-size: 10px; }
+}
+@media (max-width: 760px) and (max-height: 700px) {
+  .hero-copy { padding-top: 10px; }
+  .hero-copy h1 { margin-top: 12px; font-size: clamp(36px, 10vw, 44px); }
+  .slogan { margin-top: 8px; }
+  .hero-description { margin: 9px 0 12px; line-height: 1.45; }
+  .hero-copy .text-button { min-height: 37px; margin-top: 2px; }
+  .hero-name { bottom: 56px; }
+  .home-bottom { padding-top: 5px; padding-bottom: 5px; }
+  .map-heading { padding-top: 5px; padding-bottom: 4px; }
+  .map-heading h1 { font-size: 21px; }
+  .map-stage .forest-node { top: 22%; }
+  .map-stage .temple-node { top: 57%; }
+  .map-stage .forest-node,
+  .map-stage .temple-node { padding: 6px 9px; }
+  .world-node h2,
+  .temple-node h2 { font-size: 16px; }
+  .world-node p { margin-bottom: 3px; }
+  .world-node small { margin-top: 3px; }
+}
