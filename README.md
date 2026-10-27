@@ -1,166 +1,105 @@
 # PixelQuest
 
-**Aventuras para Aprender · Adventures for Learning**
+**Adventures for Learning · Aventuras para Aprender**
 
-## English
+PixelQuest is an original 2D educational adventure for children aged approximately
+9 and up. Through exploration, visual challenges, and encouraging feedback, it
+supports logical reasoning, reading, and computational thinking at a child's pace.
 
-PixelQuest is an educational 2D web adventure for children aged approximately 9
-and up, with activities designed to support different learning levels. It develops
-logical reasoning, reading, and computational thinking through exploration and
-visual commands, without timers, punishment, or competition.
+PixelQuest é uma aventura educativa 2D original para crianças a partir de
+aproximadamente 9 anos. Com exploração, desafios visuais e incentivo positivo,
+apoia o raciocínio lógico, a leitura e o pensamento computacional, respeitando o
+ritmo de cada criança.
 
-**The first two adventures are playable locally:** an animated home screen, a
-world map, three Hero's Journey stages, and five Temple of Words language
-challenges. Progress is held in the current browser session; there is no backend,
-account system, or cross-session persistence yet.
+## Download
 
-## Português brasileiro
+[Download the project ZIP](https://github.com/dheimemocelin/pixelquest/archive/refs/heads/main.zip)
 
-PixelQuest é uma aventura educativa 2D para crianças a partir de aproximadamente
-9 anos, com atividades pensadas para diferentes níveis de aprendizagem. Estimula
-raciocínio lógico, leitura e pensamento computacional com exploração e comandos
-visuais, sem cronômetros, punições ou competição.
+This download contains the project's source code. A ready-to-play installer or
+hosted version has not been published yet.
 
-**As duas primeiras aventuras são jogáveis localmente:** tela inicial animada,
-mapa dos mundos, três fases de A Jornada do Herói e cinco desafios de linguagem
-no Templo das Palavras. O progresso fica na sessão atual do navegador; ainda não
-há backend, contas ou persistência entre sessões.
+O arquivo contém o código-fonte do projeto. Ainda não há instalador nem versão
+online pronta para jogar.
 
-## Games / Jogos
+## Adventures
 
-### Hero's Journey — A Jornada do Herói (implementado)
+### Hero's Journey — A Jornada do Herói
 
-1. **Primeiros Passos:** planejar quatro movimentos e acompanhar uma curva até o baú.
-2. **O Caminho da Floresta:** planejar uma rota com quatro direções e obstáculos.
-3. **A Chave Perdida:** coletar a chave antes de acessar o tesouro.
+Plan routes with directional commands, guide Nilo through a forest, avoid rocks,
+collect a key, and reach the treasure. Three playable stages introduce planning,
+sequencing, and problem-solving.
 
-As setas para frente, para trás, direita e esquerda movem Nilo uma casa na
-direção escolhida e entram na sequência de movimentos. Selecione um passo para
-reordená-lo ou retirá-lo. Cada execução começa do ponto inicial; um erro mantém
-o plano para correção. Reiniciar limpa o plano.
-Há dicas graduais, tentativas ilimitadas e repetição das fases concluídas.
-Use as setas do teclado ou os controles na tela para montar a rota. A área de jogo
-fica ajustada à tela e oferece uma opção de tela cheia. O progresso dura apenas
-enquanto a página está aberta.
+Planeje rotas com comandos direcionais, guie Nilo pela floresta, desvie de pedras,
+encontre uma chave e alcance o tesouro. As três fases jogáveis trabalham
+planejamento, sequenciamento e resolução de problemas.
 
-### Temple of Words — O Templo das Palavras (implementado)
+### Temple of Words — O Templo das Palavras
 
-Five short challenges progress from selecting words with matching initial sounds
-and filling two missing letters to building a word from a picture, making a
-simple inference, and following a three-step instruction.
-Children can replay unlocked challenges, hear instructions using the browser's
-Brazilian Portuguese speech voice when available, ask for graduated hints, and
-receive visual support after a mistake. Voice availability depends on the
-device; the written and illustrated instructions remain available. Difficulty
-support is adapted within the play session and is not a diagnostic assessment.
-Progress and support history are currently held only in application memory.
+Five playable language challenges explore initial sounds, letter-sound
+relationships, word building, simple inference, and following short instructions.
+Brazilian Portuguese narration is available when supported by the device.
 
-Cinco desafios curtos avançam da identificação de palavras com sons iniciais
-iguais e do preenchimento de duas letras até a formação de palavras a partir de
-figuras, uma inferência simples e a execução de uma instrução em três passos. É
-possível repetir desafios liberados, ouvir instruções pela voz em
-português brasileiro quando disponível no navegador, pedir dicas graduais e
-receber apoio visual após um erro. A voz depende do dispositivo; instruções
-escritas e ilustradas continuam disponíveis. O apoio é ajustado durante a sessão
-e não é um diagnóstico. Progresso e histórico de ajuda ainda ficam apenas na
-memória da aplicação.
+Cinco desafios jogáveis trabalham sons iniciais, relações entre letras e sons,
+formação de palavras, inferência simples e compreensão de instruções curtas. A
+narração em português brasileiro funciona quando há suporte no dispositivo.
 
-## Technologies / Tecnologias
+## Designed for children
 
-Implementadas: React 19, TypeScript, Vite 8, Phaser 3.90, Tailwind CSS 4, Vitest e
-Playwright. Engineering OS permanece disponível nas sete skills e três adaptadores.
-O lockfile fixa as versões instaladas. Os gráficos e sons são originais e gerados
-em código; não há CDN de assets ou fontes.
+- Large touch-friendly controls and keyboard support.
+- Short instructions with optional narration and visual guidance.
+- Unlimited attempts, no timers, penalties, or competition.
+- Original pixel art and synthesized sound effects.
+- No advertising, chat, or advertising trackers.
 
-Planejadas para outras sprints: API Node.js, SQLite, autenticação dos responsáveis,
-persistência e histórico de aprendizagem. Node.js é usado nesta sprint apenas
-pelas ferramentas de desenvolvimento.
+## Project status
 
-## Run locally / Executar localmente
+The current version is an early playable experience. Progress is held in memory
+while the game is open and is not saved between sessions. Accounts, a backend,
+cross-session progress, and a parent dashboard are not implemented.
 
-Requisitos: Node.js 22.12+ (validado com Node 24), npm e navegador moderno.
-Na branch que contém a Sprint 01:
+A versão atual é uma experiência inicial jogável. O progresso permanece na
+memória enquanto o jogo está aberto e não é salvo entre sessões. Contas,
+backend, progresso entre sessões e painel dos responsáveis ainda não foram
+implementados.
 
-```bash
-npm ci
-npm run dev
-```
+## Technology
 
-Abra `http://127.0.0.1:5173`. O servidor aceita apenas conexões locais e não muda
-de porta automaticamente. A sprint não foi publicada nem implantada automaticamente.
+**Implemented:** React, TypeScript, Vite, Phaser 3, Tailwind CSS, and Vitest.
 
-```bash
-npm test                 # testes das regras
-npm run build            # TypeScript + bundle em dist/
-npm run preview          # build local em http://127.0.0.1:4173
-npx playwright install chromium
-npm run test:e2e         # inicia e encerra seu próprio Vite em loopback
-```
+**Planned:** a Node.js API, SQLite persistence, parent authentication, and a
+learning history.
 
-Os testes E2E iniciam seu próprio servidor em `127.0.0.1:5174`; a porta do jogo
-em `5173` pode continuar em uso. Chromium precisa de suas bibliotecas de sistema
-no Linux; veja os limites e alternativas no
-[guia da sprint](docs/sprint-01.md). Não há segredos ou `.env` obrigatórios.
+**Implementadas:** React, TypeScript, Vite, Phaser 3, Tailwind CSS e Vitest.
 
-**Servidor remoto/T3 Code:** veja o [procedimento com túnel SSH](docs/sprint-01.md#visualização-remota-segura).
-Não exponha o Vite em `0.0.0.0` nem abra portas públicas no Lightsail.
-
-## Accessibility and audio / Acessibilidade e áudio
-
-Botões com símbolos e rótulos, foco visível, setas do teclado e toque, opção de
-tela cheia, descrição textual do tabuleiro, ajuda modal e respeito a movimento reduzido. Música e efeitos são
-opcionais, desligados por padrão. A narração em português brasileiro depende das
-vozes disponíveis no navegador; instruções visuais funcionam sem ela. Não são
-coletados dados de crianças. Validação de usabilidade com a criança ainda é necessária.
-
-## Structure / Estrutura
-
-```text
-src/app/             Navegação e interface da sessão
-src/games/hero/       Definições das fases, comandos, regras puras e testes
-src/games/temple/     Atividades, regras, interface e testes do templo
-src/engine/          Cena Phaser, tabuleiro, animação e pixel art
-src/components/      Canvas e ícones compartilhados
-src/audio/           Música, efeitos e narração opcional
-src/styles.css       Identidade visual e responsividade
-src/main.tsx         Entrada React
-tests/e2e/           Jornadas completas em navegador
-.agents/skills/      Sete skills Engineering OS
-.codex/agents/       Três adaptadores Codex
-docs/                Proveniência, revisão inicial e guia da sprint
-```
+**Planejadas:** API em Node.js, persistência com SQLite, autenticação dos
+responsáveis e histórico de aprendizagem.
 
 ## Roadmap
 
-- [x] Engineering OS, documentação bilíngue e licença MIT.
-- [x] Tela inicial, mapa, personagem e floresta originais.
-- [x] Três fases jogáveis com comandos, chave, dicas e feedback.
-- [x] Cinco desafios jogáveis de linguagem com narração opcional e apoio adaptativo na sessão.
-- [x] Testes de regras e jornadas em desktop, tablet e celular; build de produção.
-- [ ] Validar a Sprint 01 com o responsável e a criança.
-- [ ] Expandir A Jornada do Herói com novos desafios e repetição.
-- [ ] Validar O Templo das Palavras com o responsável e a criança.
-- [ ] Persistência e área autenticada dos responsáveis.
-- [ ] Ampliar acessibilidade e avaliação de aprendizagem com usuários.
+- [x] Original opening screen, world map, and pixel-art forest.
+- [x] Three playable Hero's Journey stages.
+- [x] Five playable Temple of Words challenges.
+- [x] Keyboard and touch controls, hints, narration, and responsive game screens.
+- [ ] Review the experience with children and their responsible adults.
+- [ ] Improve and expand both adventures based on feedback.
+- [ ] Add private, secure progress saving and a parent dashboard.
 
-## Contributing / Como contribuir
+## Contributing
 
-Read [AGENTS.md](AGENTS.md), discuss substantial changes in an issue, and work in
-a focused branch. Submit a pull request with scope and checks actually performed.
-Do not claim unrun tests passed. / Leia as instruções, discuta mudanças relevantes
-e use uma branch por tarefa. Informe o escopo e as verificações reais no PR.
+Contributions are welcome. Please open an issue to discuss substantial changes,
+keep pull requests focused, and describe the checks you ran. New artwork, music,
+fonts, and other external assets must include verified redistribution terms.
 
-Run `npm test`, `npm run build` and relevant browser tests for gameplay changes.
-Check local documentation links and `git diff --check`. Keep contributions
-accessible, age-appropriate, and original. Do not submit credentials, `.env`,
-databases, child data, or private logs. External assets require verified licenses.
-No advertising, social chat, advertising trackers, or automated diagnoses.
+Contribuições são bem-vindas. Abra uma issue para discutir mudanças maiores,
+mantenha os pull requests objetivos e informe as verificações realizadas. Novas
+imagens, músicas, fontes e outros recursos externos precisam ter condições de
+redistribuição verificadas.
 
-## License / Licença
+## License
 
 Original PixelQuest code is licensed under the [MIT License](LICENSE.md).
 Copyright (c) 2026 Dheime Fernando de Oliveira Mocelin.
 
-O código e os gráficos/sons originais do PixelQuest estão sob MIT. O material
-Engineering OS mantém sua [licença MIT original](docs/engineering-os/LICENSE).
-Veja [ASSET_LICENSES.md](ASSET_LICENSES.md) para origem e condições dos recursos.
+O código original do PixelQuest está sob a [licença MIT](LICENSE.md). Os termos
+de uso de recursos externos, quando houver, estão documentados em
+[ASSET_LICENSES.md](ASSET_LICENSES.md).
