@@ -6,6 +6,7 @@ import { execute, initialState } from "../games/hero/rules";
 import type { Command, State } from "../games/hero/types";
 import type { AdventureScene } from "../engine/AdventureScene";
 import { narrate, setSound, sound, stopNarration } from "../audio/audio";
+import { TempleGame } from "../games/temple/TempleGame";
 const labels: Record<Command, string> = {
   up: "Para frente",
   down: "Para trás",
@@ -13,7 +14,7 @@ const labels: Record<Command, string> = {
   right: "Direita",
 };
 const directionNames = ["frente", "direita", "trás", "esquerda"];
-type Page = "home" | "map" | "game";
+type Page = "home" | "map" | "game" | "temple";
 export default function App() {
   const [page, setPage] = useState<Page>("home");
   const [viewId, setViewId] = useState(0);
@@ -30,6 +31,9 @@ export default function App() {
   const [help, setHelp] = useState(false);
   const [audio, setAudio] = useState(false);
   const [voiceError, setVoiceError] = useState(false);
+  const [templeIndex, setTempleIndex] = useState(0);
+  const [templeCompleted, setTempleCompleted] = useState<number[]>([]);
+  const [templeSupportMode, setTempleSupportMode] = useState(false);
   const scene = useRef<AdventureScene | null>(null);
   const runId = useRef(0);
   const helpDialog = useRef<HTMLDialogElement>(null);
@@ -249,13 +253,17 @@ export default function App() {
             <div className="world-node temple-node">
               <span className="world-number">02</span>
               <div>
-                <span className="coming">EM BREVE</span>
+                <span className="coming">SONS E PALAVRAS</span>
                 <h2>
                   O Templo
                   <br />
                   das Palavras
                 </h2>
-                <p>Novos mistérios vão despertar.</p>
+                <p>Escute, descubra e abra os selos antigos.</p>
+                <button className="primary" onClick={() => go("temple")}>
+                  <Icon name="play" size={18} /> Entrar no templo
+                </button>
+                <small>{templeCompleted.length} de 5 selos encontrados</small>
               </div>
             </div>
             <button className="back-map secondary" onClick={() => go("home")}>
@@ -499,6 +507,21 @@ export default function App() {
               <span>AVENTURA 01 • FLORESTA</span>
             </footer>
           </section>
+        )}
+        {page === "temple" && (
+          <TempleGame
+            index={templeIndex}
+            completed={templeCompleted}
+            supportMode={templeSupportMode}
+            onIndexChange={setTempleIndex}
+            onComplete={(id) =>
+              setTempleCompleted((old) =>
+                old.includes(id) ? old : [...old, id],
+              )
+            }
+            onSupportChange={setTempleSupportMode}
+            onExit={() => go("map")}
+          />
         )}
       </main>
       {voiceError && (

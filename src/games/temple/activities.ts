@@ -1,0 +1,110 @@
+import type { Activity } from "./types";
+
+export const activities: Activity[] = [
+  {
+    id: 1,
+    title: "Os Sons Mágicos",
+    skill: "Som inicial",
+    prompt: "Qual palavra começa com o som /b/?",
+    speech: "Qual palavra começa com o som de bê? Bola, sapo ou lua?",
+    interaction: "choice",
+    tokens: [
+      { id: "bola", label: "BOLA", glyph: "ball" },
+      { id: "sapo", label: "SAPO", glyph: "frog" },
+      { id: "lua", label: "LUA", glyph: "moon" },
+    ],
+    correct: ["bola"],
+    supportTokens: ["bola", "sapo"],
+    supportCue: "Escute o primeiro som de cada palavra.",
+    hints: [
+      "Fale cada palavra devagar.",
+      "Ouça o primeiro som: /b/.",
+      "Procure a palavra que começa com B.",
+    ],
+  },
+  {
+    id: 2,
+    title: "As Letras Perdidas",
+    skill: "Letra e som",
+    prompt: "Complete a palavra: _ATO",
+    speech: "Uma letra sumiu. Gato. Qual letra faz o primeiro som de gato?",
+    interaction: "choice",
+    tokens: [
+      { id: "g", label: "G" },
+      { id: "r", label: "R" },
+      { id: "p", label: "P" },
+    ],
+    correct: ["g"],
+    supportTokens: ["g", "r"],
+    supportCue: "Diga “gato” devagar e preste atenção ao primeiro som.",
+    hints: [
+      "Leia o começo em voz alta: _ATO.",
+      "A palavra é GATO. Qual som você ouve primeiro?",
+      "A letra G completa GATO.",
+    ],
+  },
+  {
+    id: 3,
+    title: "A Palavra Secreta",
+    skill: "Formação de palavras",
+    prompt: "Organize as letras para formar a palavra do desenho.",
+    speech: "Veja a bola. Toque nas letras para escrever bola.",
+    interaction: "letters",
+    tokens: [
+      { id: "b", label: "B" },
+      { id: "a", label: "A" },
+      { id: "l", label: "L" },
+      { id: "o", label: "O" },
+    ],
+    correct: ["b", "o", "l", "a"],
+    supportCue: "Fale o nome do desenho e escute os sons na ordem.",
+    hints: [
+      "Diga o nome do desenho em voz alta.",
+      "Qual som você escuta primeiro?",
+      "A palavra começa com B e termina com A.",
+    ],
+  },
+  {
+    id: 4,
+    title: "A Porta Encantada",
+    skill: "Compreensão de frases",
+    prompt: "O gato dorme no tapete. O que ele está fazendo?",
+    speech: "O gato dorme no tapete. O que ele está fazendo?",
+    interaction: "choice",
+    tokens: [
+      { id: "dorme", label: "DORME", glyph: "cat" },
+      { id: "corre", label: "CORRE", glyph: "run" },
+      { id: "pula", label: "PULA", glyph: "jump" },
+    ],
+    correct: ["dorme"],
+    supportTokens: ["dorme", "corre"],
+    supportCue: "Volte à frase e procure a ação do gato.",
+    hints: [
+      "Leia a frase mais uma vez.",
+      "O que o gato faz no tapete?",
+      "A frase diz: o gato dorme.",
+    ],
+  },
+  {
+    id: 5,
+    title: "O Enigma do Guardião",
+    skill: "Seguir instruções",
+    prompt: "Toque na chave. Depois, toque na porta.",
+    speech: "Para abrir o templo, toque primeiro na chave. Depois, toque na porta.",
+    interaction: "sequence",
+    tokens: [
+      { id: "key", label: "CHAVE", glyph: "key" },
+      { id: "door", label: "PORTA", glyph: "door" },
+      { id: "star", label: "ESTRELA", glyph: "star" },
+    ],
+    correct: ["key", "door"],
+    supportCue: "Faça uma coisa de cada vez. Qual objeto abre uma porta?",
+    hints: [
+      "A instrução tem dois passos.",
+      "Qual objeto você usaria antes da porta?",
+      "Primeiro a chave; depois, a porta.",
+    ],
+  },
+];
+
+export const activityById = (id: number) => activities[id - 1];

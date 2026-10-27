@@ -336,9 +336,13 @@ main {
 .temple-node {
   right: 10%;
   top: 345px;
-  background: #25463ae8;
-  opacity: 0.85;
+  background: linear-gradient(145deg, #2c3155f2, #242b47f2);
+  border-color: #a28cc26e;
+  opacity: 1;
 }
+.temple-node .world-number { color: #e9ca78; border-color: #e9ca78; }
+.temple-node small { color: #d9d3ec; }
+.temple-node .coming { color: #e3d5a0; border-color: #d8bd7370; }
 .coming {
   font-size: 9px;
   letter-spacing: 2px;
@@ -346,6 +350,120 @@ main {
   padding: 5px 9px;
   border-radius: 4px;
   color: #cbd6b9;
+}
+.temple-game {
+  min-height: calc(100vh - 88px);
+  padding: 28px 4.5% 0;
+  color: #f3edda;
+  background: radial-gradient(ellipse at 45% 14%, #393453, #211f37 72%);
+}
+.temple-heading { display: flex; align-items: center; gap: 15px; margin-bottom: 22px; }
+.temple-title-wrap { min-width: 0; }
+.temple-title-wrap .eyebrow { display: block; color: #e4cf8d; font-size: 9px; letter-spacing: 1.5px; }
+.temple-title-wrap h1 { margin-top: 4px; color: #f5efd9; font-size: 26px; font-weight: 800; line-height: 1.15; }
+.temple-level-nav { display: flex; gap: 8px; margin-left: auto; }
+.temple-level-nav button { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid #a9957566; border-radius: 50%; background: #393652; color: #e6dfc9; font-weight: 800; }
+.temple-level-nav button.current { background: #e9c875; color: #362d43; box-shadow: 0 0 0 4px #e9c87524; }
+.temple-level-nav button.complete:not(.current) { background: #405b4b; color: #f1d98c; }
+.temple-level-nav button:disabled { opacity: .45; }
+.temple-layout { display: grid; grid-template-columns: minmax(0, 1fr) 365px; align-items: start; gap: 24px; }
+.temple-scene-column { min-width: 0; }
+.temple-board { position: relative; width: 100%; aspect-ratio: 1.43; overflow: hidden; border: 1px solid #b9a2737a; border-radius: 15px; background: #25233d; box-shadow: 0 12px 34px #11101f88; }
+.temple-canvas { position: absolute; inset: 0; overflow: hidden; }
+.temple-canvas canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+.temple-board-label, .temple-board-status { position: absolute; left: 0; right: 0; z-index: 2; display: flex; align-items: center; pointer-events: none; color: #efe6c8; }
+.temple-board-label { top: 0; gap: 9px; min-height: 42px; padding: 12px 16px; background: linear-gradient(#211f39e8, #211f3980); font-size: 9px; font-weight: 700; letter-spacing: 1.3px; }
+.temple-board-label span:last-child { margin-left: auto; color: #e5cc83; }
+.temple-board-label .little-square { width: 6px; height: 6px; background: #e9c775; }
+.temple-board-status { bottom: 0; justify-content: space-between; gap: 10px; min-height: 44px; padding: 20px 16px 12px; background: linear-gradient(transparent, #211f39f2); font-size: 10px; }
+.temple-board-status span { display: flex; align-items: center; gap: 5px; }
+.temple-board-status svg { color: #edce79; }
+.temple-objective { display: flex; align-items: center; gap: 13px; min-height: 88px; padding: 18px 0; border-bottom: 1px solid #ab9c7640; }
+.temple-objective .objective-icon { flex: 0 0 48px; color: #efd17e; background: #53485c; }
+.temple-objective .eyebrow { display: block; color: #d9c78e; font-size: 9px; letter-spacing: 1.5px; }
+.temple-objective p { margin-top: 4px; color: #f4eedc; font-size: 15px; line-height: 1.5; }
+.temple-objective .hear { flex: 0 0 auto; margin-left: auto; border-color: #ab956255; background: #393552; color: #f0d888; }
+.temple-challenge { min-width: 0; padding: 23px 21px 18px; border: 2px solid #b8a36c; border-radius: 15px; background: linear-gradient(155deg, #f5f0dc, #e6dfc4); color: #2b3540; box-shadow: 0 6px 0 #655844, 0 15px 32px #12101f66; }
+.temple-challenge-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.temple-challenge-heading .eyebrow { color: #756344; font-size: 9px; letter-spacing: 1.2px; }
+.temple-seal-count { display: flex; align-items: center; gap: 4px; color: #786444; font-size: 11px; white-space: nowrap; }
+.temple-seal-count svg { color: #b58c4b; }
+.temple-prompt { max-width: 290px; margin: 18px auto 14px; color: #3b3e3d; font-size: 15px; font-weight: 750; line-height: 1.45; text-align: center; }
+.temple-token-row { display: grid; align-items: stretch; gap: 9px; margin: 13px 0 17px; }
+.choice-grid { grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); }
+.letter-choices { grid-template-columns: repeat(3, 1fr); }
+.letter-pool { grid-template-columns: repeat(4, 1fr); max-width: 260px; margin-right: auto; margin-left: auto; }
+.temple-actions { grid-template-columns: repeat(3, 1fr); }
+.temple-choice { display: flex; min-width: 0; min-height: 110px; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 8px 5px; border: 1px solid #b7b18e; border-radius: 12px; background: linear-gradient(145deg, #fff9e5, #d9dfc0); color: #34483c; box-shadow: 0 4px 0 #9e9a78; font-size: 12px; font-weight: 800; text-align: center; }
+.temple-choice:hover:not(:disabled) { transform: translateY(-2px); background: #fff5d3; }
+.temple-choice:disabled { opacity: .65; }
+.temple-glyph { display: block; width: 54px; height: 54px; image-rendering: pixelated; }
+.letter-choices .temple-choice { min-height: 82px; font-size: 27px; }
+.letter-choices .temple-glyph { display: none; }
+.temple-actions .temple-choice { min-height: 103px; gap: 6px; }
+.temple-actions .temple-choice .temple-glyph { width: 48px; height: 48px; }
+.temple-actions .temple-choice span { font-size: 10px; }
+.word-picture { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 15px 0 5px; color: #5a6d4b; font-size: 13px; font-weight: 800; letter-spacing: 2px; }
+.word-picture .temple-glyph { width: 47px; height: 47px; }
+.missing-word { display: flex; justify-content: center; gap: 10px; margin: 18px auto 4px; font-size: 33px; font-weight: 900; }
+.missing-word span { width: 47px; border-bottom: 3px solid #b98845; background: #fff3cf; color: #a97137; text-align: center; }
+.sentence-stone { max-width: 300px; margin: 18px auto 4px; padding: 13px 15px; border: 1px solid #b3a875; border-radius: 10px; background: #e4ddbd; color: #413b4c; font-size: 15px; font-weight: 750; line-height: 1.5; text-align: center; }
+.letter-slots, .temple-action-slots { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 58px; margin: 13px auto; }
+.letter-slots span { display: grid; place-items: center; width: 48px; height: 52px; border: 2px dashed #b8ad8b; border-radius: 9px; background: #f9f4df; color: #354a3d; font-size: 22px; font-weight: 900; }
+.letter-slots .filled { border-style: solid; background: #d8e3be; }
+.letter-tile { min-height: 53px; border: 1px solid #abb28b; border-radius: 10px; background: #f8f2d8; color: #354c3d; box-shadow: 0 3px #9ba27e; font-size: 22px; font-weight: 900; }
+.letter-tile:disabled { opacity: .45; }
+.temple-action-slots > span { display: grid; place-items: center; flex: 0 0 56px; width: 56px; height: 56px; border: 1px dashed #aca580; border-radius: 50%; background: #f8f2d9; color: #856e46; font-size: 14px; font-weight: 800; }
+.temple-action-slots .filled { border-style: solid; background: #e4e8cf; }
+.temple-action-slots .temple-glyph { width: 38px; height: 38px; }
+.temple-inline-actions { display: flex; justify-content: space-between; gap: 7px; }
+.temple-check, .temple-quiet { min-height: 42px; padding: 8px 11px; border-radius: 9px; background: #d9dfc4; color: #4a5a43; font-size: 11px; font-weight: 700; }
+.temple-check { min-width: 120px; background: #ebc96d; color: #3b3840; }
+.temple-check:disabled { opacity: .5; }
+.temple-support { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0 9px; padding: 10px; border-left: 3px solid #74905e; border-radius: 0 7px 7px 0; background: #dce5c8; color: #485b42; font-size: 11px; line-height: 1.45; }
+.temple-support svg { flex: 0 0 auto; color: #668456; }
+.temple-hint { margin: 9px 0; }
+.temple-feedback { min-height: 46px; margin-top: 4px; padding: 12px 2px 4px; border-top: 1px solid #c9c4a8; color: #687358; font-size: 11px; line-height: 1.5; text-align: center; }
+.temple-feedback.success { color: #3e6043; animation: seal-light 420ms ease-out; }
+.temple-feedback p { margin: 0; }
+.temple-continue { width: 100%; min-height: 50px; margin-top: 10px; border-radius: 12px; background: #efca72; color: #344139; font-weight: 800; }
+.temple-footer-actions { display: flex; justify-content: space-between; gap: 5px; margin-top: 8px; border-top: 1px solid #c9c4a8; padding-top: 7px; }
+.temple-footer-actions .temple-quiet { display: flex; flex: 1; align-items: center; justify-content: center; gap: 6px; min-width: 0; border: 0; background: transparent; color: #4d6345; }
+.temple-footer { display: flex; justify-content: space-between; gap: 12px; padding: 23px 0; color: #c7bedb; font-size: 10px; }
+.temple-footer span:last-child { color: #b9accd; font-size: 8px; letter-spacing: 1.2px; }
+.temple-game button:focus-visible { outline: 3px solid #9cc9a5; outline-offset: 3px; }
+.temple-game .temple-challenge button:focus-visible { outline-color: #648454; }
+@keyframes seal-light { 50% { box-shadow: 0 0 24px #edcb7c55; } }
+@media (max-width: 1000px) {
+  .temple-game { padding-left: 3%; padding-right: 3%; }
+  .temple-layout { grid-template-columns: minmax(0, 1fr) 315px; gap: 17px; }
+  .temple-challenge { padding: 21px 16px; }
+}
+@media (max-width: 760px) {
+  .temple-game { padding: 21px 4% 0; }
+  .temple-heading { gap: 10px; margin-bottom: 16px; }
+  .temple-title-wrap h1 { font-size: 20px; }
+  .temple-title-wrap .eyebrow { font-size: 8px; }
+  .temple-level-nav { gap: 5px; }
+  .temple-level-nav button { width: 34px; height: 34px; }
+  .temple-heading .round-back { width: 39px; height: 40px; }
+  .temple-layout { grid-template-columns: 1fr; gap: 12px; }
+  .temple-board { aspect-ratio: 1.28; }
+  .temple-objective { min-height: 75px; gap: 9px; padding: 14px 0; }
+  .temple-objective .objective-icon { flex-basis: 42px; width: 42px; height: 42px; }
+  .temple-objective p { font-size: 13px; }
+  .temple-objective .hear { min-width: 45px; min-height: 44px; padding: 9px; }
+  .temple-objective .hear span { display: none; }
+  .temple-challenge { margin-top: 3px; padding: 20px 17px 16px; }
+  .temple-prompt { margin: 14px auto 12px; font-size: 14px; }
+  .temple-choice { min-height: 100px; }
+  .temple-glyph { width: 48px; height: 48px; }
+  .temple-footer { gap: 8px; padding: 19px 0; }
+  .temple-footer span:first-child { max-width: 68%; }
+  .temple-footer span:last-child { max-width: 30%; font-size: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .temple-feedback.success { animation: none; }
 }
 .back-map {
   position: absolute;

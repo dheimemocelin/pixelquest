@@ -37,7 +37,9 @@ test("complete the three adventures through the real interface", async ({
     .filter({ hasText: "JOGAR" })
     .first()
     .click();
-  await expect(page.getByText("EM BREVE")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Entrar no templo", exact: true }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Entrar na floresta" }).click();
   await expect(
     page.getByRole("button", { name: "Fase 2:", exact: false }),

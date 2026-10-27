@@ -9,10 +9,10 @@ and up, with activities designed to support different learning levels. It develo
 logical reasoning, reading, and computational thinking through exploration and
 visual commands, without timers, punishment, or competition.
 
-**Sprint 01 is playable locally:** an animated home screen, a world map, and three
-Hero's Journey stages. Build and edit a command sequence, run it, collect a key,
-and find the treasure. There is no backend, account system, or persistent progress.
-Temple of Words remains planned.
+**The first two adventures are playable locally:** an animated home screen, a
+world map, three Hero's Journey stages, and five Temple of Words language
+challenges. Progress is held in the current browser session; there is no backend,
+account system, or cross-session persistence yet.
 
 ## Português brasileiro
 
@@ -21,10 +21,10 @@ PixelQuest é uma aventura educativa 2D para crianças a partir de aproximadamen
 raciocínio lógico, leitura e pensamento computacional com exploração e comandos
 visuais, sem cronômetros, punições ou competição.
 
-**A Sprint 01 é jogável localmente:** tela inicial animada, mapa dos mundos e três
-fases de A Jornada do Herói. Monte e edite comandos, execute o plano, encontre uma
-chave e chegue ao tesouro. Ainda não há backend, contas ou progresso persistente.
-O Templo das Palavras continua planejado.
+**As duas primeiras aventuras são jogáveis localmente:** tela inicial animada,
+mapa dos mundos, três fases de A Jornada do Herói e cinco desafios de linguagem
+no Templo das Palavras. O progresso fica na sessão atual do navegador; ainda não
+há backend, contas ou persistência entre sessões.
 
 ## Games / Jogos
 
@@ -41,12 +41,25 @@ o plano para correção. Reiniciar limpa o plano.
 Há dicas graduais, tentativas ilimitadas e repetição das fases concluídas.
 O progresso dura apenas enquanto a página está aberta.
 
-### Temple of Words — O Templo das Palavras (planejado)
+### Temple of Words — O Templo das Palavras (implementado)
 
-A future language adventure: initial sounds, letter–sound associations, word
-building, short sentences, and instruction comprehension. / Uma futura aventura
-com sons iniciais, relações letra–som, formação de palavras, frases curtas e
-compreensão de instruções. Ainda não é jogável.
+Five short challenges progress from initial sounds and letter–sound matching to
+word building, sentence comprehension, and following a two-step instruction.
+Children can replay unlocked challenges, hear instructions using the browser's
+Brazilian Portuguese speech voice when available, ask for graduated hints, and
+receive visual support after a mistake. Voice availability depends on the
+device; the written and illustrated instructions remain available. Difficulty
+support is adapted within the play session and is not a diagnostic assessment.
+Progress and support history are currently held only in application memory.
+
+Cinco desafios curtos avançam dos sons iniciais e da relação letra–som até a
+formação de palavras, compreensão de frases e execução de uma instrução em dois
+passos. É possível repetir desafios liberados, ouvir instruções pela voz em
+português brasileiro quando disponível no navegador, pedir dicas graduais e
+receber apoio visual após um erro. A voz depende do dispositivo; instruções
+escritas e ilustradas continuam disponíveis. O apoio é ajustado durante a sessão
+e não é um diagnóstico. Progresso e histórico de ajuda ainda ficam apenas na
+memória da aplicação.
 
 ## Technologies / Tecnologias
 
@@ -101,6 +114,7 @@ coletados dados de crianças. Validação de usabilidade com a criança ainda é
 ```text
 src/app/             Navegação e interface da sessão
 src/games/hero/       Definições das fases, comandos, regras puras e testes
+src/games/temple/     Atividades, regras, interface e testes do templo
 src/engine/          Cena Phaser, tabuleiro, animação e pixel art
 src/components/      Canvas e ícones compartilhados
 src/audio/           Música, efeitos e narração opcional
@@ -117,10 +131,11 @@ docs/                Proveniência, revisão inicial e guia da sprint
 - [x] Engineering OS, documentação bilíngue e licença MIT.
 - [x] Tela inicial, mapa, personagem e floresta originais.
 - [x] Três fases jogáveis com comandos, chave, dicas e feedback.
+- [x] Cinco desafios jogáveis de linguagem com narração opcional e apoio adaptativo na sessão.
 - [x] Testes de regras e jornadas em desktop, tablet e celular; build de produção.
 - [ ] Validar a Sprint 01 com o responsável e a criança.
 - [ ] Expandir A Jornada do Herói com novos desafios e repetição.
-- [ ] Implementar O Templo das Palavras.
+- [ ] Validar O Templo das Palavras com o responsável e a criança.
 - [ ] Persistência e área autenticada dos responsáveis.
 - [ ] Ampliar acessibilidade e avaliação de aprendizagem com usuários.
 
