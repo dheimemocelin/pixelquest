@@ -54,13 +54,15 @@ test("complete the three adventures through the real interface", async ({
   await expect(
     page.getByText("Você encontrou o tesouro!", { exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Próxima aventura" }).click();
+  await expect(page.getByRole("button", { name: "Próxima fase" })).toBeVisible();
+  await page.getByRole("button", { name: "Próxima fase" }).click();
   await add(page, "RRUURR");
   await page.getByRole("button", { name: "EXECUTAR", exact: true }).click();
   await expect(
     page.getByText("Você encontrou o tesouro!", { exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Próxima aventura" }).click();
+  await expect(page.getByRole("button", { name: "Próxima fase" })).toBeVisible();
+  await page.getByRole("button", { name: "Próxima fase" }).click();
   // A shortcut cannot skip the key.
   await add(page, "RRR");
   await page.getByRole("button", { name: "EXECUTAR", exact: true }).click();

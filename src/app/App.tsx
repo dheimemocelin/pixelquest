@@ -550,7 +550,7 @@ export default function App() {
                         levelIndex < 2 ? go("game", levelIndex + 1) : go("map")
                       }
                     >
-                      {levelIndex < 2 ? "Próxima aventura" : "Voltar ao mapa"}{" "}
+                      {levelIndex < 2 ? "Próxima fase" : "Voltar ao mapa"}{" "}
                       <span>→</span>
                     </button>
                   )}

@@ -1552,6 +1552,19 @@ dialog button:focus-visible {
 .map-stage .forest-node { top: 34%; }
 .map-stage .temple-node { top: 47%; }
 .back-map { bottom: 10px; }
+.command-panel { position: relative; }
+.feedback.success {
+  position: absolute;
+  z-index: 4;
+  inset: auto 12px 12px;
+  min-height: 0;
+  padding: 8px 10px 10px;
+  border: 1px solid #c8cfad;
+  border-radius: 10px;
+  background: var(--cream);
+  box-shadow: 0 4px 14px #203a2c2b;
+}
+.feedback.success .primary { min-height: 48px; margin-top: 7px; }
 
 @media (max-width: 760px) {
   .home-stage,
