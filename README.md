@@ -1,164 +1,145 @@
 # PixelQuest
 
-**Adventures for Learning · Aventuras para Aprender**
+**Aventuras para Aprender · Adventures for Learning**
 
 ## English
 
-PixelQuest is an educational web game project designed to help children develop
-logical reasoning, reading, and computational thinking through original 2D
-adventures. The initial audience is children aged approximately 9 and up, with
-activities intended to adapt to each child's learning level.
+PixelQuest is an educational 2D web adventure for children aged approximately 9
+and up, with activities designed to support different learning levels. It develops
+logical reasoning, reading, and computational thinking through exploration and
+visual commands, without timers, punishment, or competition.
 
-The planned experience combines exploration, visual commands, puzzles, and gentle
-feedback to support independence and persistence, including for children who need
-additional reading support. No timers, punishment, or competition are planned.
-
-**Current status: repository preparation.** Engineering instructions and skills
-are configured. There is no runnable application, playable game, backend,
-authentication, or progress tracking yet. Planned features remain on the roadmap.
+**Sprint 01 is playable locally:** an animated home screen, a world map, and three
+Hero's Journey stages. Build and edit a command sequence, run it, collect a key,
+and find the treasure. There is no backend, account system, or persistent progress.
+Temple of Words remains planned.
 
 ## Português brasileiro
 
-PixelQuest é um projeto de jogos educativos para a web que pretende desenvolver
-raciocínio lógico, leitura e pensamento computacional por meio de aventuras 2D
-originais. O público inicial são crianças a partir de aproximadamente 9 anos,
-com atividades ajustáveis ao nível de aprendizagem.
+PixelQuest é uma aventura educativa 2D para crianças a partir de aproximadamente
+9 anos, com atividades pensadas para diferentes níveis de aprendizagem. Estimula
+raciocínio lógico, leitura e pensamento computacional com exploração e comandos
+visuais, sem cronômetros, punições ou competição.
 
-A experiência planejada combina exploração, comandos visuais, enigmas e feedback
-acolhedor para estimular autonomia e persistência, inclusive para crianças que
-precisam de apoio na leitura, sem cronômetros, punições ou competição.
+**A Sprint 01 é jogável localmente:** tela inicial animada, mapa dos mundos e três
+fases de A Jornada do Herói. Monte e edite comandos, execute o plano, encontre uma
+chave e chegue ao tesouro. Ainda não há backend, contas ou progresso persistente.
+O Templo das Palavras continua planejado.
 
-**Estado atual: preparação do repositório.** As instruções e skills de engenharia
-estão configuradas. Ainda não existem aplicação executável, jogos funcionais,
-backend, autenticação ou acompanhamento de progresso. Os recursos abaixo são
-planejados, não implementados.
+## Games / Jogos
 
-## Planned games / Jogos planejados
+### Hero's Journey — A Jornada do Herói (implementado)
 
-### Hero's Journey — A Jornada do Herói
+1. **Primeiros Passos:** dois movimentos até o baú usando as setas.
+2. **O Caminho da Floresta:** planejar uma rota com quatro direções e obstáculos.
+3. **A Chave Perdida:** coletar a chave antes de acessar o tesouro.
 
-Build visual command sequences to guide a hero through paths, obstacles, keys,
-and doors. Five planned stages introduce movement, longer sequences, debugging,
-route selection, and repetition.
+As setas para frente, para trás, direita e esquerda movem Nilo uma casa na
+direção escolhida. Selecione um passo para movê-lo ou retirá-lo. Cada execução começa do
+ponto inicial; um erro mantém o plano para correção. Reiniciar limpa o plano.
+Há dicas graduais, tentativas ilimitadas e repetição das fases concluídas.
+O progresso dura apenas enquanto a página está aberta.
 
-Construa sequências de comandos visuais para guiar um herói por caminhos,
-obstáculos, chaves e portas. As cinco fases previstas introduzem movimentos,
-sequências maiores, correção de comandos, escolha de caminhos e repetição.
+### Temple of Words — O Templo das Palavras (planejado)
 
-### Temple of Words — O Templo das Palavras
+A future language adventure: initial sounds, letter–sound associations, word
+building, short sentences, and instruction comprehension. / Uma futura aventura
+com sons iniciais, relações letra–som, formação de palavras, frases curtas e
+compreensão de instruções. Ainda não é jogável.
 
-Explore a temple through five planned language challenges: initial sounds,
-letter–sound associations, word building, short sentences, and interpreting a
-guardian's instruction. Repeatable Brazilian Portuguese audio and gradual hints
-are planned; support needs should inform difficulty alongside completion.
+## Technologies / Tecnologias
 
-Explore um templo em cinco desafios previstos: sons iniciais, relações entre
-letras e sons, formação de palavras, frases curtas e interpretação de uma
-instrução do guardião. Estão previstos áudio repetível em português brasileiro,
-dicas graduais e dificuldade ajustada também à necessidade de ajuda.
+Implementadas: React 19, TypeScript, Vite 8, Phaser 3.90, Tailwind CSS 4, Vitest e
+Playwright. Engineering OS permanece disponível nas sete skills e três adaptadores.
+O lockfile fixa as versões instaladas. Os gráficos e sons são originais e gerados
+em código; não há CDN de assets ou fontes.
 
-## Technology / Tecnologias
+Planejadas para outras sprints: API Node.js, SQLite, autenticação dos responsáveis,
+persistência e histórico de aprendizagem. Node.js é usado nesta sprint apenas
+pelas ferramentas de desenvolvimento.
 
-Already present / Já disponível:
+## Run locally / Executar localmente
 
-- Git repository, Markdown documentation, and project instructions in `AGENTS.md`.
-- Seven Engineering OS skills in `.agents/skills/` and three generated Codex
-  role definitions in `.codex/agents/`; see the [integration notes](docs/engineering-os/README.md).
-
-Planned, not installed / Planejado, ainda não instalado:
-
-- Frontend: React, TypeScript, Vite, Phaser 3, Tailwind CSS.
-- Backend: Node.js, a simple HTTP API, SQLite.
-- Independent game modules sharing navigation, audio, authentication, and progress.
-- Automated tests for game rules, persistence, accessibility, and integration.
-
-## Local setup / Preparação local
-
-Git is sufficient to inspect the current repository. Obtain it with:
-
-Git é suficiente para inspecionar o repositório atual. Obtenha o projeto com:
+Requisitos: Node.js 22.12+ (validado com Node 24), npm e navegador moderno.
+Na branch que contém a Sprint 01:
 
 ```bash
-git clone https://github.com/dheimemocelin/pixelquest.git
-cd pixelquest
-git status
+npm ci
+npm run dev
 ```
 
-If you already have the checkout, use its existing directory instead of cloning
-again. This branch has no `package.json`, dependency lockfile, application scripts,
-or local server. There are currently no install, dev, build, or game-test commands.
-Do not run `npm install` or `npm run dev` yet. Actual commands and environment
-requirements will be documented when the application foundation is implemented.
+Abra `http://127.0.0.1:5173`. O servidor aceita apenas conexões locais e não muda
+de porta automaticamente. A sprint não foi publicada nem implantada automaticamente.
 
-Se você já tem o checkout, use a pasta existente. Esta branch não possui
-`package.json`, lockfile, scripts da aplicação ou servidor local. Ainda não há
-comandos de instalação, desenvolvimento, build ou testes dos jogos. Não execute
-`npm install` ou `npm run dev` nesta etapa. Os comandos reais e requisitos de
-ambiente serão documentados na implementação da fundação.
+```bash
+npm test                 # testes das regras
+npm run build            # TypeScript + bundle em dist/
+npm run preview          # build local em http://127.0.0.1:4173
+npx playwright install chromium
+npm run test:e2e         # inicia e encerra seu próprio Vite em loopback
+```
 
-## Repository structure / Estrutura atual
+Para E2E, encerre qualquer Vite que esteja usando a porta 5173. Chromium precisa
+de suas bibliotecas de sistema no Linux; veja os limites e alternativas no
+[guia da sprint](docs/sprint-01.md). Não há segredos ou `.env` obrigatórios.
+
+**Servidor remoto/T3 Code:** veja o [procedimento com túnel SSH](docs/sprint-01.md#visualização-remota-segura).
+Não exponha o Vite em `0.0.0.0` nem abra portas públicas no Lightsail.
+
+## Accessibility and audio / Acessibilidade e áudio
+
+Botões com símbolos e rótulos, foco visível, teclado e toque, descrição textual
+do tabuleiro, ajuda modal e respeito a movimento reduzido. Música e efeitos são
+opcionais, desligados por padrão. A narração em português brasileiro depende das
+vozes disponíveis no navegador; instruções visuais funcionam sem ela. Não são
+coletados dados de crianças. Validação de usabilidade com a criança ainda é necessária.
+
+## Structure / Estrutura
 
 ```text
-.agents/skills/          Engineering OS skill instructions (7)
-.codex/agents/          Generated Codex role definitions (3)
-docs/engineering-os/    Integration notes and upstream MIT notice
-AGENTS.md               Project engineering instructions
-ASSET_LICENSES.md       Asset provenance and licensing policy
-LICENSE.md              MIT license for original project code
-README.md               Project overview and current status
-.gitignore              Local data, credentials, and build exclusions
+src/app/             Navegação e interface da sessão
+src/games/hero/       Definições das fases, comandos, regras puras e testes
+src/engine/          Cena Phaser, tabuleiro, animação e pixel art
+src/components/      Canvas e ícones compartilhados
+src/audio/           Música, efeitos e narração opcional
+src/styles.css       Identidade visual e responsividade
+src/main.tsx         Entrada React
+tests/e2e/           Jornadas completas em navegador
+.agents/skills/      Sete skills Engineering OS
+.codex/agents/       Três adaptadores Codex
+docs/                Proveniência, revisão inicial e guia da sprint
 ```
 
 ## Roadmap
 
-- [x] Configure Engineering OS skills and project instructions.
-- [x] Prepare bilingual documentation and licensing for publication.
-- [ ] Stage 1 — Foundation: React/TypeScript/Phaser setup, navigation, home screen,
-  original hero, and visual world map. / Fundação e mapa dos mundos.
-- [ ] Stage 2 — Hero's Journey: five playable stages and tested command mechanics.
-  / Cinco fases funcionais e mecânicas de comandos testadas.
-- [ ] Stage 3 — Temple of Words: five language stages, audio, and answer validation.
-  / Cinco atividades de linguagem com áudio e validação.
-- [ ] Stage 4 — Persistence, caregiver authentication, learning history, and manual
-  difficulty settings. / Persistência e acompanhamento pelos responsáveis.
-- [ ] Stage 5 — Broader automated tests, responsiveness, accessibility, performance,
-  and validation with users. / Qualidade e validação com usuários.
-
-Each stage requires review before advancing. Accessibility and testing apply from
-the first implementation, not only at the final stage. / Cada etapa deve ser
-validada antes da seguinte; acessibilidade e testes começam na implementação inicial.
+- [x] Engineering OS, documentação bilíngue e licença MIT.
+- [x] Tela inicial, mapa, personagem e floresta originais.
+- [x] Três fases jogáveis com comandos, chave, dicas e feedback.
+- [x] Testes de regras e jornadas em desktop/tablet; build de produção.
+- [ ] Validar a Sprint 01 com o responsável e a criança.
+- [ ] Expandir A Jornada do Herói com novos desafios e repetição.
+- [ ] Implementar O Templo das Palavras.
+- [ ] Persistência e área autenticada dos responsáveis.
+- [ ] Ampliar acessibilidade e avaliação de aprendizagem com usuários.
 
 ## Contributing / Como contribuir
 
-Read [AGENTS.md](AGENTS.md) before making changes. Discuss substantial features in
-an issue, work in a focused branch, and submit a pull request with the problem,
-scope, and checks actually performed. Do not describe unrun tests as passing.
-For documentation changes, check local links and run `git diff --check`.
-For future game changes, add tests for the relevant rules and failure cases.
+Read [AGENTS.md](AGENTS.md), discuss substantial changes in an issue, and work in
+a focused branch. Submit a pull request with scope and checks actually performed.
+Do not claim unrun tests passed. / Leia as instruções, discuta mudanças relevantes
+e use uma branch por tarefa. Informe o escopo e as verificações reais no PR.
 
-Leia [AGENTS.md](AGENTS.md), discuta mudanças relevantes em uma issue e trabalhe em
-uma branch por tarefa. No pull request, explique o problema, o escopo e as
-verificações realizadas. Não afirme que testes não executados passaram. Para
-documentação, confira links locais e execute `git diff --check`; para futuras
-mecânicas, inclua testes das regras e casos de falha.
-
-Keep contributions accessible, age-appropriate, and original. Do not submit
-credentials, `.env` files, databases, child data, or private activity logs. The
-product is intended to have no advertising, social chat, advertising trackers,
-or automated medical, psychological, or educational diagnoses. External assets
-require verified redistribution terms before inclusion.
-
-Preserve acessibilidade, adequação à idade e originalidade. Não envie credenciais,
-arquivos `.env`, bancos, dados de crianças ou registros privados. O produto não
-prevê publicidade, chat social, rastreamento publicitário ou diagnósticos
-automáticos. Recursos externos precisam de licença de redistribuição verificada.
+Run `npm test`, `npm run build` and relevant browser tests for gameplay changes.
+Check local documentation links and `git diff --check`. Keep contributions
+accessible, age-appropriate, and original. Do not submit credentials, `.env`,
+databases, child data, or private logs. External assets require verified licenses.
+No advertising, social chat, advertising trackers, or automated diagnoses.
 
 ## License / Licença
 
 Original PixelQuest code is licensed under the [MIT License](LICENSE.md).
 Copyright (c) 2026 Dheime Fernando de Oliveira Mocelin.
 
-O código original do PixelQuest está sob a [licença MIT](LICENSE.md).
-The bundled Engineering OS material retains its [upstream MIT notice](docs/engineering-os/LICENSE).
-Assets are documented separately in [ASSET_LICENSES.md](ASSET_LICENSES.md);
-the code license does not grant rights over unverified third-party resources.
+O código e os gráficos/sons originais do PixelQuest estão sob MIT. O material
+Engineering OS mantém sua [licença MIT original](docs/engineering-os/LICENSE).
+Veja [ASSET_LICENSES.md](ASSET_LICENSES.md) para origem e condições dos recursos.

@@ -1,7 +1,74 @@
-import type { Level, Point } from './types';
-const points = (list: number[][]): Point[] => list.map(([x,y])=>({x,y}));
+import type { Level, Point } from "./types";
+const points = (list: number[][]): Point[] => list.map(([x, y]) => ({ x, y }));
 export const levels: Level[] = [
-  { id: 1, name: 'Primeiros Passos', instruction: 'Avance duas casas até o baú.', start: {x:2,y:2,direction:1}, path:points([[2,2],[3,2],[4,2]]), treasure:{x:4,y:2}, commands:['forward'], maxCommands:4, hints:['Veja a seta aos pés de Nilo. Ela mostra para onde ele vai.', 'Cada Avançar anda uma casa. Conte as casas até o baú.', 'Coloque dois comandos Avançar. Depois, execute.'] },
-  { id: 2, name: 'O Caminho da Floresta', instruction: 'Siga o caminho. Vire para chegar ao baú.', start:{x:1,y:3,direction:1}, path:points([[1,3],[2,3],[3,3],[3,2],[3,1],[4,1],[5,1]]), treasure:{x:5,y:1}, commands:['forward','left','right'], maxCommands:16, hints:['As pedras ficam fora do caminho. Observe as curvas.', 'Virar muda a direção, mas não anda. Depois de virar, avance.', 'Avance duas vezes, vire à esquerda, avance duas vezes, vire à direita e avance duas vezes.'] },
-  { id: 3, name: 'A Chave Perdida', instruction: 'Pegue a chave. Depois, encontre o baú.', start:{x:1,y:3,direction:0}, path:points([[1,3],[1,2],[1,1],[2,1],[3,1],[4,1],[4,2],[4,3],[2,3],[3,3]]), key:{x:1,y:1}, door:{x:4,y:2}, treasure:{x:4,y:3}, commands:['forward','left','right'], maxCommands:18, hints:['O brilho dourado marca a chave. Vá até ela primeiro.', 'O caminho de cima passa pela chave e chega à porta.', 'Avance duas vezes, vire à direita, avance três vezes, vire à direita e avance duas vezes.'] }
+  {
+    id: 1,
+    name: "Primeiros Passos",
+    instruction: "Use as setas para chegar ao baú.",
+    start: { x: 2, y: 2, direction: 1 },
+    path: points([
+      [2, 2],
+      [3, 2],
+      [4, 2],
+    ]),
+    treasure: { x: 4, y: 2 },
+    commands: ["up", "down", "right", "left"],
+    maxCommands: 4,
+    hints: [
+      "Cada seta move Nilo uma casa naquela direção.",
+      "O baú está duas casas à direita de Nilo.",
+      "Escolha → duas vezes. Depois, execute.",
+    ],
+  },
+  {
+    id: 2,
+    name: "O Caminho da Floresta",
+    instruction: "Siga o caminho até o baú, desviando das pedras.",
+    start: { x: 1, y: 3, direction: 1 },
+    path: points([
+      [1, 3],
+      [2, 3],
+      [3, 3],
+      [3, 2],
+      [3, 1],
+      [4, 1],
+      [5, 1],
+    ]),
+    treasure: { x: 5, y: 1 },
+    commands: ["up", "down", "right", "left"],
+    maxCommands: 16,
+    hints: [
+      "As pedras ficam fora do caminho. Observe as curvas.",
+      "Cada seta move uma casa. Escolha a próxima direção do caminho.",
+      "Vá → →, depois ↑ ↑ e então → →.",
+    ],
+  },
+  {
+    id: 3,
+    name: "A Chave Perdida",
+    instruction: "Pegue a chave. Depois, encontre o baú.",
+    start: { x: 1, y: 3, direction: 0 },
+    path: points([
+      [1, 3],
+      [1, 2],
+      [1, 1],
+      [2, 1],
+      [3, 1],
+      [4, 1],
+      [4, 2],
+      [4, 3],
+      [2, 3],
+      [3, 3],
+    ]),
+    key: { x: 1, y: 1 },
+    door: { x: 4, y: 2 },
+    treasure: { x: 4, y: 3 },
+    commands: ["up", "down", "right", "left"],
+    maxCommands: 18,
+    hints: [
+      "O brilho dourado marca a chave. Vá até ela primeiro.",
+      "O caminho de cima passa pela chave e chega à porta.",
+      "Vá ↑ ↑, depois → → → e então ↓ ↓.",
+    ],
+  },
 ];

@@ -5,7 +5,18 @@ its own copyright and license; inclusion requires verified redistribution rights
 
 ## Current inventory
 
-No game images, sprites, fonts, music, or audio are bundled in the current tree.
+Sprint 01 includes original resources authored directly in project code:
+
+- `src/engine/art.ts`: Nilo, trees, rocks, chest, key, gate, forest and river.
+- `src/components/Icon.tsx`: geometric interface icons.
+- `src/audio/audio.ts`: oscillator effects and a short original note sequence.
+- `src/styles.css`: visual composition and interface styling.
+
+These resources are original PixelQuest material, covered by the root MIT license.
+There are no imported image, sprite, font, music or audio files. System fonts are
+referenced but not distributed. Optional speech uses browser/OS voices; no voice
+recordings or voice models are bundled. Third-party npm dependencies retain their
+own licenses in their distributions; the project MIT license does not replace them.
 
 Engineering OS instructions in `.agents/skills/` and generated role definitions
 in `.codex/agents/` originate from
@@ -25,8 +36,8 @@ for redistribution. Do not bundle resources with unknown or incompatible terms.
 ## Português brasileiro
 
 A licença MIT da raiz cobre o código original do PixelQuest. Recursos de terceiros
-mantêm suas próprias condições. A versão atual não contém imagens de jogo, fontes,
-músicas ou áudios. O material Engineering OS mantém sua licença MIT original.
+mantêm suas próprias condições. A Sprint 01 gera arte e sons originais em código sob MIT; não distribui arquivos
+de mídia ou fontes de terceiros. O material Engineering OS mantém sua licença MIT original.
 
 Antes de adicionar recursos, registre caminho, autoria, origem, licença, atribuição,
 alterações e condições de redistribuição. Não inclua recursos com licença desconhecida.

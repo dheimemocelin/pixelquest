@@ -1,18 +1,81 @@
-import { describe, expect, it } from 'vitest';
-import { levels } from './levels';
-import { execute, initialState, isVictory, step } from './rules';
-import type { Command } from './types';
-export const solutions:Command[][]=[['forward','forward'],['forward','forward','left','forward','forward','right','forward','forward'],['forward','forward','right','forward','forward','forward','right','forward','forward']];
-describe('Hero rules',()=>{
-  it('moves one cell in the facing direction without mutating input',()=>{const state=initialState(levels[0]);expect(step(levels[0],state,'forward').state).toMatchObject({x:3,y:2,direction:1});expect(state.x).toBe(2);});
-  it('turns without moving and wraps all directions',()=>{let s=initialState(levels[0]);for(let i=0;i<4;i++)s=step(levels[0],s,'left').state;expect(s).toEqual(initialState(levels[0]));expect(step(levels[0],s,'right').state).toMatchObject({x:2,y:2,direction:2});});
-  it('blocks rocks and map edges',()=>{const s=initialState(levels[0]);const blocked=step(levels[0],{...s,direction:0},'forward');expect(blocked.event).toBe('blocked');expect(blocked.state).toMatchObject({x:2,y:2});expect(step(levels[0],{...s,x:0,direction:3},'forward').event).toBe('blocked');});
-  it.each(levels.map((level,i)=>({level,solution:solutions[i]})))('solves stage $level.id',({level,solution})=>{const result=execute(level,solution);expect(result.at(-1)?.state.won).toBe(true);expect(result.at(-1)?.event).toBe('win');});
-  it('collects the key only once',()=>{const result=execute(levels[2],['forward','forward']);expect(result.at(-1)?.event).toBe('key');expect(result.at(-1)?.state.hasKey).toBe(true);});
-  it('locks both the door and a shortcut to the treasure without key',()=>{const l=levels[2];expect(step(l,{x:4,y:1,direction:2,hasKey:false,won:false},'forward').event).toBe('locked');expect(execute(l,['right','forward','forward','forward']).at(-1)?.event).toBe('locked');});
-  it('opens the door with the key',()=>{expect(step(levels[2],{x:4,y:1,direction:2,hasKey:true,won:false},'forward').event).toBe('move');});
-  it('requires reaching the treasure, and a key when specified',()=>{expect(isVictory(levels[2],{...initialState(levels[2]),...levels[2].treasure})).toBe(false);expect(execute(levels[0],['forward']).at(-1)?.state.won).toBe(false);});
-  it('stops a sequence at a collision and victory',()=>{expect(execute(levels[0],['left','forward','right','forward'])).toHaveLength(2);expect(execute(levels[0],['forward','forward','forward'])).toHaveLength(2);});
-  it('resets position, key, orientation and victory for each attempt',()=>{execute(levels[2],solutions[2]);expect(initialState(levels[2])).toEqual({...levels[2].start,hasKey:false,won:false});expect(execute(levels[2],['forward'])[0].state.hasKey).toBe(false);});
-  it('handles an empty sequence without moving',()=>{expect(execute(levels[0],[])).toEqual([]);});
+import { describe, expect, it } from "vitest";
+import { levels } from "./levels";
+import { execute, initialState, isVictory, step } from "./rules";
+import { commandDirection, directionVector, facingRotation } from "./direction";
+import type { Command } from "./types";
+
+export const solutions: Command[][] = [
+  ["right", "right"],
+  ["right", "right", "up", "up", "right", "right"],
+  ["up", "up", "right", "right", "right", "down", "down"],
+];
+
+describe("Hero rules", () => {
+  it.each([
+    ["up", 0, [0, -1], Math.PI],
+    ["right", 1, [1, 0], -Math.PI / 2],
+    ["down", 2, [0, 1], 0],
+    ["left", 3, [-1, 0], Math.PI / 2],
+  ] as const)("maps %s to the matching movement and facing", (command, direction, vector, rotation) => {
+    expect(commandDirection[command]).toBe(direction);
+    expect(directionVector[direction]).toEqual(vector);
+    expect(facingRotation[direction]).toBe(rotation);
+  });
+  it.each([
+    ["up", 2, 1],
+    ["right", 3, 2],
+    ["down", 2, 3],
+    ["left", 1, 2],
+  ] as const)("moves one cell %s and sets Nilo's facing", (command, x, y) => {
+    const base = levels[0];
+    const openLevel = {
+      ...base,
+      path: [
+        { x: 2, y: 2 },
+        { x: 2, y: 1 },
+        { x: 3, y: 2 },
+        { x: 2, y: 3 },
+        { x: 1, y: 2 },
+      ],
+    };
+    const result = step(openLevel, initialState(openLevel), command);
+    expect(result.state).toMatchObject({ x, y, direction: commandDirection[command] });
+  });
+  it("blocks rocks and map edges", () => {
+    const level = levels[0];
+    const blocked = step(level, initialState(level), "up");
+    expect(blocked.event).toBe("blocked");
+    expect(blocked.state).toMatchObject({ x: 2, y: 2, direction: 0 });
+    expect(step(level, { ...initialState(level), x: 0, y: 2 }, "left").event).toBe("blocked");
+  });
+  it.each(levels.map((level, i) => ({ level, solution: solutions[i] }))) (
+    "solves stage $level.id",
+    ({ level, solution }) => {
+      const result = execute(level, solution);
+      expect(result.at(-1)?.state.won).toBe(true);
+      expect(result.at(-1)?.event).toBe("win");
+    },
+  );
+  it("collects the key and rejects a shortcut to the treasure", () => {
+    const result = execute(levels[2], ["up", "up"]);
+    expect(result.at(-1)?.event).toBe("key");
+    expect(result.at(-1)?.state.hasKey).toBe(true);
+    expect(execute(levels[2], ["right", "right", "right"]).at(-1)?.event).toBe("locked");
+  });
+  it("requires reaching the treasure and a key when specified", () => {
+    expect(isVictory(levels[2], { ...initialState(levels[2]), ...levels[2].treasure })).toBe(false);
+    expect(execute(levels[0], ["right"]).at(-1)?.state.won).toBe(false);
+  });
+  it("stops a sequence at collision and victory", () => {
+    expect(execute(levels[0], ["up", "right", "right"])).toHaveLength(1);
+    expect(execute(levels[0], ["right", "right", "right"])).toHaveLength(2);
+  });
+  it("resets position, key, direction and victory for each attempt", () => {
+    execute(levels[2], solutions[2]);
+    expect(initialState(levels[2])).toEqual({ ...levels[2].start, hasKey: false, won: false });
+    expect(execute(levels[2], ["up"])[0].state.hasKey).toBe(false);
+  });
+  it("handles an empty sequence without moving", () => {
+    expect(execute(levels[0], [])).toEqual([]);
+  });
 });

@@ -9,9 +9,9 @@ atividades ajustáveis ao nível de aprendizagem. Priorizar autonomia, persistê
 Stack prevista: React, TypeScript, Vite, Phaser 3 e Tailwind CSS; Node.js, API HTTP
 e SQLite. Não instalar dependências ou serviços antes de serem necessários.
 
-Esta entrega configura somente o Engineering OS. A implementação da Etapa 1
-aguarda solicitação do usuário. Depois dela, aguardar validação antes das demais
-etapas: Jornada do Herói, Templo das Palavras, acompanhamento e qualidade.
+A Sprint 01 implementa o frontend e três fases de A Jornada do Herói. Aguardar
+validação do usuário antes de expandir o jogo, implementar O Templo das Palavras,
+backend ou painel dos responsáveis. Escopo e execução: `docs/sprint-01.md`.
 
 ## Skills
 
