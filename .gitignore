@@ -1,0 +1,39 @@
+# Dependências e saídas futuras
+node_modules/
+dist/
+coverage/
+__pycache__/
+*.pyc
+
+# Configuração sensível e dados locais
+.env
+.env.*
+!.env.example
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.pem
+*.key
+*.log
+.local-evidence/
+.generated-*/
+
+# Credenciais locais e dados privados
+.npmrc
+.pypirc
+.netrc
+.aws/
+.ssh/
+credentials.json
+credentials-*.json
+service-account*.json
+*.p12
+*.pfx
+*.jks
+*.keystore
+data/
+backups/
+private/
