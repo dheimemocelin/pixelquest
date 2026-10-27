@@ -30,7 +30,7 @@ há backend, contas ou persistência entre sessões.
 
 ### Hero's Journey — A Jornada do Herói (implementado)
 
-1. **Primeiros Passos:** dois movimentos até o baú usando as setas.
+1. **Primeiros Passos:** planejar quatro movimentos e acompanhar uma curva até o baú.
 2. **O Caminho da Floresta:** planejar uma rota com quatro direções e obstáculos.
 3. **A Chave Perdida:** coletar a chave antes de acessar o tesouro.
 
@@ -39,12 +39,15 @@ direção escolhida e entram na sequência de movimentos. Selecione um passo par
 reordená-lo ou retirá-lo. Cada execução começa do ponto inicial; um erro mantém
 o plano para correção. Reiniciar limpa o plano.
 Há dicas graduais, tentativas ilimitadas e repetição das fases concluídas.
-O progresso dura apenas enquanto a página está aberta.
+Use as setas do teclado ou os controles na tela para montar a rota. A área de jogo
+fica ajustada à tela e oferece uma opção de tela cheia. O progresso dura apenas
+enquanto a página está aberta.
 
 ### Temple of Words — O Templo das Palavras (implementado)
 
-Five short challenges progress from initial sounds and letter–sound matching to
-word building, sentence comprehension, and following a two-step instruction.
+Five short challenges progress from selecting words with matching initial sounds
+and filling two missing letters to building a word from a picture, making a
+simple inference, and following a three-step instruction.
 Children can replay unlocked challenges, hear instructions using the browser's
 Brazilian Portuguese speech voice when available, ask for graduated hints, and
 receive visual support after a mistake. Voice availability depends on the
@@ -52,9 +55,10 @@ device; the written and illustrated instructions remain available. Difficulty
 support is adapted within the play session and is not a diagnostic assessment.
 Progress and support history are currently held only in application memory.
 
-Cinco desafios curtos avançam dos sons iniciais e da relação letra–som até a
-formação de palavras, compreensão de frases e execução de uma instrução em dois
-passos. É possível repetir desafios liberados, ouvir instruções pela voz em
+Cinco desafios curtos avançam da identificação de palavras com sons iniciais
+iguais e do preenchimento de duas letras até a formação de palavras a partir de
+figuras, uma inferência simples e a execução de uma instrução em três passos. É
+possível repetir desafios liberados, ouvir instruções pela voz em
 português brasileiro quando disponível no navegador, pedir dicas graduais e
 receber apoio visual após um erro. A voz depende do dispositivo; instruções
 escritas e ilustradas continuam disponíveis. O apoio é ajustado durante a sessão
@@ -103,8 +107,8 @@ Não exponha o Vite em `0.0.0.0` nem abra portas públicas no Lightsail.
 
 ## Accessibility and audio / Acessibilidade e áudio
 
-Botões com símbolos e rótulos, foco visível, teclado e toque, descrição textual
-do tabuleiro, ajuda modal e respeito a movimento reduzido. Música e efeitos são
+Botões com símbolos e rótulos, foco visível, setas do teclado e toque, opção de
+tela cheia, descrição textual do tabuleiro, ajuda modal e respeito a movimento reduzido. Música e efeitos são
 opcionais, desligados por padrão. A narração em português brasileiro depende das
 vozes disponíveis no navegador; instruções visuais funcionam sem ela. Não são
 coletados dados de crianças. Validação de usabilidade com a criança ainda é necessária.

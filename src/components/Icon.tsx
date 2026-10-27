@@ -14,7 +14,9 @@ export type IconName =
   | "reset"
   | "leaf"
   | "map"
-  | "check";
+  | "check"
+  | "expand"
+  | "compress";
 const paths: Record<IconName, string> = {
   up: "M12 2 4 10h5v12h6V10h5z",
   down: "m12 22 8-8h-5V2H9v12H4z",
@@ -32,6 +34,8 @@ const paths: Record<IconName, string> = {
   leaf: "M4 4h18v10h-4v4H8v4H4v-8H0V8h4z",
   map: "M1 5 8 2l8 3 7-3v17l-7 3-8-3-7 3z",
   check: "m2 11 4-4 5 5 8-10 4 4-12 16z",
+  expand: "M3 9V3h6v2H5v4zm18 0V5h-4V3h6v6zM3 15h2v4h4v2H3zm16 4v-4h2v6h-6v-2z",
+  compress: "M5 3h2v4h4v2H5zm14 0v6h-6V7h4V3zM5 21v-6h6v2H7v4zm14 0h-2v-4h-4v-2h6z",
 };
 export function Icon({ name, size = 22 }: { name: IconName; size?: number }) {
   return (

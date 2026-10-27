@@ -34,6 +34,8 @@ export default function App() {
   const [templeIndex, setTempleIndex] = useState(0);
   const [templeCompleted, setTempleCompleted] = useState<number[]>([]);
   const [templeSupportMode, setTempleSupportMode] = useState(false);
+  const [nativeFullscreen, setNativeFullscreen] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
   const scene = useRef<AdventureScene | null>(null);
   const runId = useRef(0);
   const helpDialog = useRef<HTMLDialogElement>(null);
@@ -50,6 +52,52 @@ export default function App() {
     if (help) helpDialog.current?.showModal();
     else helpDialog.current?.close();
   }, [help]);
+  useEffect(() => {
+    const syncFullscreen = () => setNativeFullscreen(!!document.fullscreenElement);
+    const leaveFallbackFullscreen = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setFocusMode(false);
+    };
+    document.addEventListener("fullscreenchange", syncFullscreen);
+    window.addEventListener("keydown", leaveFallbackFullscreen);
+    return () => {
+      document.removeEventListener("fullscreenchange", syncFullscreen);
+      window.removeEventListener("keydown", leaveFallbackFullscreen);
+    };
+  }, []);
+  useEffect(() => {
+    if (page !== "game" || help) return;
+    const directions: Record<string, Command> = {
+      ArrowUp: "up",
+      ArrowDown: "down",
+      ArrowLeft: "left",
+      ArrowRight: "right",
+    };
+    const addByKeyboard = (event: KeyboardEvent) => {
+      const command = directions[event.key];
+      if (!command || running || state.won || commands.length >= level.maxCommands) return;
+      event.preventDefault();
+      edit([...commands, command]);
+      setSelected(null);
+    };
+    window.addEventListener("keydown", addByKeyboard);
+    return () => window.removeEventListener("keydown", addByKeyboard);
+  }, [page, help, running, state.won, commands, level.maxCommands]);
+  async function toggleFullscreen() {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen().catch(() => {});
+      return;
+    }
+    if (document.documentElement.requestFullscreen) {
+      try {
+        await document.documentElement.requestFullscreen();
+        setFocusMode(false);
+        return;
+      } catch {
+        // Keep a viewport-filling fallback for browsers that reject fullscreen.
+      }
+    }
+    setFocusMode((active) => !active);
+  }
   function go(next: Page, index = levelIndex) {
     runId.current++;
     setViewId((n) => n + 1);
@@ -138,7 +186,7 @@ export default function App() {
     );
   }
   return (
-    <div className={`app page-${page}`}>
+    <div className={`app page-${page} ${focusMode ? "focus-mode" : ""}`}>
       <header className="topbar flex items-center justify-between">
         <button
           className="brand"
@@ -153,6 +201,16 @@ export default function App() {
           </span>
         </button>
         <div className="flex items-center gap-2">
+          {(page === "game" || page === "temple") && (
+            <button
+              className="icon-button fullscreen-button"
+              aria-label={nativeFullscreen || focusMode ? "Sair da tela cheia" : "Ativar tela cheia"}
+              aria-pressed={nativeFullscreen || focusMode}
+              onClick={() => void toggleFullscreen()}
+            >
+              <Icon name={nativeFullscreen || focusMode ? "compress" : "expand"} size={20} />
+            </button>
+          )}
           <span className="header-caption">
             PEQUENOS PASSOS. GRANDES DESCOBERTAS.
           </span>
@@ -354,7 +412,7 @@ export default function App() {
                   <summary>Descrição do caminho</summary>
                   <p>
                     {level.id === 1
-                      ? "Use a seta para a direita duas vezes. Cada seta move Nilo uma casa."
+                      ? "Siga o caminho: duas casas à direita e duas para baixo. Cada seta move Nilo uma casa."
                       : level.id === 2
                         ? "Siga duas casas à direita, duas para cima e duas à direita. Fora do caminho há pedras."
                         : "A chave está duas casas acima. Depois, siga à direita até a porta e desça até o baú."}
@@ -364,7 +422,7 @@ export default function App() {
               <aside className="command-panel">
                 <span className="eyebrow">PLANEJE A ROTA</span>
                 <h2>Monte seu caminho</h2>
-                <p className="panel-intro">Toque nas setas para mover Nilo.</p>
+                <p className="panel-intro">Use as setas do teclado ou toque nas direções.</p>
                 <div
                   className="command-buttons"
                 >
@@ -396,7 +454,7 @@ export default function App() {
                     {commands.length} / {level.maxCommands}
                   </span>
                 </div>
-                <p className="queue-tip">Toque em uma seta para editar.</p>
+                <p className="queue-tip">Setas do teclado ou toque adicionam passos à rota.</p>
                 <ol className="sequence" aria-label="Sequência de comandos">
                   {commands.map((command, i) => (
                     <li key={i}>

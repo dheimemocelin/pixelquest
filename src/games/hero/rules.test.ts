@@ -5,7 +5,7 @@ import { commandDirection, directionVector, facingRotation } from "./direction";
 import type { Command } from "./types";
 
 export const solutions: Command[][] = [
-  ["right", "right"],
+  ["right", "right", "down", "down"],
   ["right", "right", "up", "up", "right", "right"],
   ["up", "up", "right", "right", "right", "down", "down"],
 ];
@@ -68,7 +68,7 @@ describe("Hero rules", () => {
   });
   it("stops a sequence at collision and victory", () => {
     expect(execute(levels[0], ["up", "right", "right"])).toHaveLength(1);
-    expect(execute(levels[0], ["right", "right", "right"])).toHaveLength(2);
+    expect(execute(levels[0], ["right", "right", "right"])).toHaveLength(3);
   });
   it("resets position, key, direction and victory for each attempt", () => {
     execute(levels[2], solutions[2]);

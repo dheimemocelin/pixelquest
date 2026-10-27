@@ -4,20 +4,22 @@ export const levels: Level[] = [
   {
     id: 1,
     name: "Primeiros Passos",
-    instruction: "Use as setas para chegar ao baú.",
+    instruction: "Siga o caminho até o baú. Há uma curva no caminho.",
     start: { x: 2, y: 2, direction: 1 },
     path: points([
       [2, 2],
       [3, 2],
       [4, 2],
+      [4, 3],
+      [4, 4],
     ]),
-    treasure: { x: 4, y: 2 },
+    treasure: { x: 4, y: 4 },
     commands: ["up", "down", "right", "left"],
-    maxCommands: 4,
+    maxCommands: 6,
     hints: [
-      "Cada seta move Nilo uma casa naquela direção.",
-      "O baú está duas casas à direita de Nilo.",
-      "Escolha → duas vezes. Depois, execute.",
+      "Cada seta move Nilo uma casa. Observe para onde o caminho vira.",
+      "O caminho começa indo à direita e termina descendo.",
+      "Duas casas à direita e duas para baixo levam ao baú.",
     ],
   },
   {

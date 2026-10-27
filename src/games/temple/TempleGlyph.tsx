@@ -27,6 +27,9 @@ export function TempleGlyph({ token }: { token: Token }) {
     door: [rect(10, 5, 28, 39, "gold"), rect(15, 11, 18, 33, "ink"), rect(18, 14, 12, 27, "blue"), rect(27, 27, 3, 3, "gold")],
     star: [rect(20, 4, 8, 10, "gold"), rect(16, 13, 16, 7, "gold"), rect(5, 17, 38, 8, "gold"), rect(12, 24, 24, 6, "gold"), rect(14, 29, 8, 12, "gold"), rect(26, 29, 8, 12, "gold")],
     sun: [rect(17, 5, 14, 8, "gold"), rect(17, 35, 14, 8, "gold"), rect(5, 17, 8, 14, "gold"), rect(35, 17, 8, 14, "gold"), rect(13, 13, 22, 22, "gold"), rect(18, 18, 5, 5, "light"), rect(28, 28, 4, 4, "light")],
+    sprout: [rect(22, 22, 5, 20, "mint"), rect(10, 16, 14, 5, "mint"), rect(8, 10, 12, 8, "mint"), rect(26, 14, 13, 5, "mint"), rect(31, 8, 9, 8, "mint"), rect(10, 40, 29, 4, "ink")],
+    rock: [rect(8, 25, 8, 13, "blue"), rect(14, 15, 11, 23, "blue"), rect(23, 19, 14, 19, "blue"), rect(17, 13, 8, 6, "light"), rect(31, 20, 5, 5, "light"), rect(7, 38, 32, 4, "ink")],
+    house: [rect(8, 20, 32, 22, "gold"), rect(5, 15, 19, 8, "rose"), rect(24, 15, 19, 8, "rose"), rect(20, 30, 8, 12, "ink"), rect(11, 26, 6, 6, "blue"), rect(31, 26, 6, 6, "blue")],
   };
   return (
     <svg className="temple-glyph" viewBox="0 0 48 48" aria-hidden="true" shapeRendering="crispEdges">

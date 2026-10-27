@@ -2,6 +2,10 @@ import type { Activity } from "./types";
 
 export function isCorrect(activity: Activity, answer: string[]): boolean {
   if (answer.length !== activity.correct.length) return false;
+  if (activity.interaction === "multiple") {
+    const selected = new Set(answer);
+    return activity.correct.every((token) => selected.has(token));
+  }
   return answer.every((token, index) => token === activity.correct[index]);
 }
 

@@ -9,6 +9,7 @@
   --ink: #163c34;
   --cream: #f5f1df;
   --green: #cbe5a0;
+  --topbar-height: 88px;
 }
 * {
   box-sizing: border-box;
@@ -465,6 +466,8 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .temple-feedback.success { animation: none; }
 }
+
+
 .back-map {
   position: absolute;
   bottom: 35px;
@@ -1285,3 +1288,233 @@ dialog button:focus-visible {
     top: 718px;
   }
 }
+
+/* Game screens stay inside the viewport; the home and world map may scroll. */
+.app.page-game,
+.app.page-temple {
+  display: flex;
+  height: 100dvh;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+.page-game > main,
+.page-temple > main {
+  flex: 1 1 auto;
+  height: calc(100dvh - var(--topbar-height));
+  min-height: 0;
+  overflow: hidden;
+}
+.game-page,
+.temple-game {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  padding-top: 12px;
+  padding-bottom: 4px;
+}
+.adventure-heading,
+.temple-heading {
+  flex: 0 0 auto;
+  margin-bottom: 12px;
+}
+.game-layout,
+.temple-layout {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.game-layout { grid-template-rows: minmax(0, 1fr); }
+.play-column,
+.temple-scene-column {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+.board-wrap,
+.temple-board {
+  flex: 1 1 auto;
+  min-height: 0;
+  aspect-ratio: auto;
+}
+.objective,
+.temple-objective { flex: 0 0 auto; padding-top: 10px; padding-bottom: 10px; }
+.map-description { flex: 0 0 auto; margin: 0; }
+.command-panel { max-height: 100%; overflow: hidden; padding-top: 15px; padding-bottom: 12px; }
+.game-footer,
+.temple-footer { flex: 0 0 auto; padding-top: 10px; padding-bottom: 4px; }
+.fullscreen-button { font-size: 23px; line-height: 1; }
+.focus-mode {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+}
+.temple-layout { grid-template-rows: minmax(0, 1fr); }
+.temple-challenge { min-height: 0; max-height: 100%; overflow: hidden; }
+.multiple-choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.temple-choice.chosen { border-color: #55754b; background: #c7d9a8; box-shadow: 0 0 0 3px #6d8a5140; }
+
+@media (max-height: 850px) and (min-width: 761px) {
+  .adventure-heading,
+  .temple-heading { margin-bottom: 7px; }
+  .game-page,
+  .temple-game { padding-top: 7px; }
+  .command-panel { padding: 10px 15px 8px; }
+  .command-panel h2 { margin-top: 4px; font-size: 20px; }
+  .panel-intro { margin-top: 3px; font-size: 10px; }
+  .command-buttons { margin: 6px auto 8px; grid-template-rows: repeat(3, 45px); }
+  .command { min-height: 44px; }
+  .sequence-heading { margin-top: 6px; }
+  .sequence { min-height: 76px; margin: 6px 0; padding: 7px; gap: 5px; }
+  .sequence button { width: 38px; height: 39px; }
+  .support-actions { margin-top: 3px; }
+  .support-actions button { min-height: 34px; padding: 4px; }
+  .feedback { min-height: 34px; margin-top: 4px; padding-top: 5px; }
+  .feedback .primary { margin-top: 6px; }
+  .game-footer,
+  .temple-footer { padding-top: 5px; }
+  .temple-challenge { padding-top: 13px; padding-bottom: 10px; }
+  .temple-prompt { margin-top: 10px; margin-bottom: 8px; }
+  .temple-token-row { gap: 6px; margin: 8px 0 10px; }
+  .temple-choice { min-height: 78px; }
+  .temple-actions .temple-choice { min-height: 74px; }
+  .temple-feedback { min-height: 37px; padding-top: 7px; }
+  .temple-footer-actions { margin-top: 4px; padding-top: 3px; }
+}
+
+@media (max-width: 1000px) {
+  :root { --topbar-height: 75px; }
+}
+@media (max-width: 760px) {
+  :root { --topbar-height: 70px; }
+  .game-page,
+  .temple-game { padding: 7px 12px 3px; }
+  .adventure-heading,
+  .temple-heading { gap: 7px; margin-bottom: 6px; }
+  .adventure-heading h1,
+  .temple-title-wrap h1 { font-size: 17px; }
+  .level-nav,
+  .temple-level-nav { gap: 4px; }
+  .level-nav button,
+  .temple-level-nav button { width: 32px; height: 32px; min-width: 32px; min-height: 32px; }
+  .round-back,
+  .temple-heading .round-back { width: 36px; height: 36px; }
+  .fullscreen-button { width: 38px; height: 38px; }
+
+  .game-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(125px, 22dvh) minmax(0, 1fr);
+    gap: 5px;
+  }
+  .play-column { display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+  .board-wrap { min-height: 0; aspect-ratio: auto; }
+  .board-label { padding: 8px 10px; }
+  .board-status { padding: 8px; font-size: 9px; }
+  .objective { min-height: 0; gap: 7px; padding: 5px 0; }
+  .objective-icon { width: 35px; height: 35px; }
+  .objective p { margin-top: 2px; font-size: 11px; }
+  .objective .eyebrow { font-size: 7px; }
+  .hear { min-height: 38px; width: 40px; padding: 6px; }
+  .map-description { display: none; }
+  .command-panel { min-height: 0; padding: 7px 11px; }
+  .command-panel > .eyebrow { font-size: 7px; }
+  .command-panel h2 { margin-top: 2px; font-size: 16px; }
+  .panel-intro { margin-top: 2px; font-size: 9px; }
+  .command-buttons {
+    grid-template-columns: repeat(3, 43px);
+    grid-template-rows: repeat(3, 37px);
+    gap: 2px;
+    margin: 4px auto 5px;
+  }
+  .command { min-height: 36px; border-radius: 9px; box-shadow: 0 2px 0 #899c73; }
+  .command svg { width: 23px; height: 23px; }
+  .sequence-heading { margin: 3px 0 0; }
+  .sequence-heading h3 { font-size: 12px; }
+  .sequence-heading span,
+  .queue-tip { font-size: 9px; }
+  .sequence { min-height: 40px; max-height: 72px; gap: 3px; margin: 3px 0; padding: 4px; overflow: auto; }
+  .sequence button { width: 32px; height: 33px; border-radius: 6px; }
+  .sequence button svg { width: 18px; height: 18px; }
+  .empty-sequence { gap: 6px; font-size: 9px; }
+  .empty-sequence > span { width: 27px; height: 30px; }
+  .execute { min-height: 42px; margin-top: 2px; font-size: 13px; }
+  .support-actions { margin: 1px 0 0; }
+  .support-actions button { min-height: 34px; padding: 4px; font-size: 10px; }
+  .hint { margin: 3px 0; padding: 5px 7px; font-size: 10px; }
+  .feedback { min-height: 29px; margin-top: 3px; padding: 4px 2px 0; font-size: 9px; line-height: 1.35; }
+  .feedback .primary { min-height: 38px; margin-top: 4px; }
+  .game-footer { display: none; }
+
+  .temple-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(130px, 22dvh) minmax(0, 1fr);
+    gap: 5px;
+  }
+  .temple-scene-column { display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+  .temple-board { min-height: 0; aspect-ratio: auto; border-radius: 9px; }
+  .temple-board-label { min-height: 27px; padding: 6px 9px; font-size: 7px; }
+  .temple-board-status { display: none; }
+  .temple-objective { min-height: 0; gap: 6px; padding: 4px 0; }
+  .temple-objective .objective-icon { flex-basis: 34px; width: 34px; height: 34px; }
+  .temple-objective .eyebrow { font-size: 7px; }
+  .temple-objective p { margin-top: 2px; font-size: 12px; line-height: 1.3; }
+  .temple-objective .hear { width: 38px; min-width: 38px; min-height: 36px; padding: 5px; }
+  .temple-challenge { margin-top: 0; padding: 7px 10px; border-width: 1px; border-radius: 10px; }
+  .temple-challenge-heading .eyebrow { font-size: 7px; }
+  .temple-seal-count { font-size: 9px; }
+  .temple-prompt { margin: 5px auto; font-size: 12px; line-height: 1.25; }
+  .temple-token-row { gap: 5px; margin: 5px 0 7px; }
+  .choice-grid { grid-template-columns: repeat(auto-fit, minmax(66px, 1fr)); }
+  .multiple-choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .temple-choice { min-height: 55px; gap: 3px; padding: 4px; border-radius: 8px; font-size: 11px; }
+  .temple-glyph { width: 30px; height: 30px; }
+  .temple-actions .temple-choice { min-height: 57px; gap: 1px; }
+  .temple-actions .temple-choice .temple-glyph { width: 28px; height: 28px; }
+  .temple-actions .temple-choice span { font-size: 8px; }
+  .letter-pool { max-width: 230px; margin: 4px auto; }
+  .letter-tile { min-height: 38px; font-size: 18px; }
+  .letter-slots,
+  .temple-action-slots { min-height: 40px; margin: 4px auto; gap: 4px; }
+  .letter-slots span { width: 34px; height: 37px; font-size: 17px; }
+  .temple-action-slots > span { flex-basis: 38px; width: 38px; height: 38px; }
+  .temple-action-slots .temple-glyph { width: 27px; height: 27px; }
+  .word-picture { margin: 3px 0 0; font-size: 8px; }
+  .word-picture .temple-glyph { width: 30px; height: 30px; }
+  .missing-word { gap: 4px; margin: 4px auto 0; font-size: 20px; }
+  .missing-word span { width: 29px; }
+  .missing-word b { min-width: 24px; text-align: center; }
+  .sentence-stone { margin: 5px auto 0; padding: 6px 8px; font-size: 11px; }
+  .temple-inline-actions { gap: 5px; }
+  .temple-quiet,
+  .temple-check { min-height: 34px; padding: 5px 7px; font-size: 9px; }
+  .temple-check { min-width: 100px; }
+  .temple-support { margin: 4px 0; padding: 5px 7px; font-size: 9px; }
+  .temple-hint { margin: 3px 0; padding: 5px 7px; font-size: 9px; }
+  .temple-feedback { min-height: 30px; margin-top: 3px; padding: 5px 2px 0; font-size: 9px; }
+  .temple-continue { min-height: 38px; margin-top: 4px; }
+  .temple-footer-actions { gap: 2px; margin-top: 3px; padding-top: 2px; }
+  .temple-footer-actions .temple-quiet { min-height: 31px; font-size: 9px; }
+  .temple-footer { display: none; }
+}
+
+/* Grid children fill their viewport rows so the playfield stays visually anchored. */
+.temple-layout { align-items: stretch; }
+.temple-challenge { display: flex; flex-direction: column; justify-content: center; }
+.temple-keyboard-tip { margin-top: 4px; color: #7a765e; font-size: 9px; text-align: center; }
+@media (max-width: 760px) {
+  .temple-keyboard-tip { display: none; }
+  .command-panel { display: flex; flex-direction: column; justify-content: center; }
+  .command-buttons { grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 42px); }
+  .command { min-height: 42px; }
+}
+@media (max-width: 760px) and (max-height: 700px) {
+  .game-layout { grid-template-rows: minmax(105px, 16dvh) minmax(0, 1fr); }
+  .temple-layout { grid-template-rows: minmax(115px, 17dvh) minmax(0, 1fr); }
+}
+.game-layout { align-items: stretch; }
+.page-game > main,
+.page-temple > main { width: 100%; max-width: none; margin: 0; }

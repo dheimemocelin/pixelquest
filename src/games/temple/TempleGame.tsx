@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "../../components/Icon";
 import { TempleCanvas } from "../../components/TempleCanvas";
 import { narrate, sound, stopNarration } from "../../audio/audio";
@@ -33,6 +33,7 @@ export function TempleGame({
   const [hintsUsed, setHintsUsed] = useState(0);
   const [scaffold, setScaffold] = useState(supportMode);
   const [voiceError, setVoiceError] = useState(false);
+  const templeRoot = useRef<HTMLElement>(null);
   const tokens = availableTokens(activity, scaffold);
   const maxUnlocked = Math.max(0, ...completed);
 
@@ -47,6 +48,14 @@ export function TempleGame({
     stopNarration();
     return () => stopNarration();
   }, [index, supportMode]);
+
+  useEffect(() => {
+    const onArrow = (event: KeyboardEvent) => {
+      if (navigateAnswers(templeRoot.current, event.key)) event.preventDefault();
+    };
+    window.addEventListener("keydown", onArrow);
+    return () => window.removeEventListener("keydown", onArrow);
+  }, []);
 
   function submit(next: string[]) {
     if (solved) return;
@@ -73,6 +82,53 @@ export function TempleGame({
       submit(next);
   }
 
+  function toggleToken(id: string) {
+    if (solved) return;
+    setAnswer((current) =>
+      current.includes(id)
+        ? current.filter((token) => token !== id)
+        : [...current, id],
+    );
+  }
+
+  function navigateAnswers(root: HTMLElement | null, key: string) {
+    if (!root || !["ArrowUp", "ArrowRight", "ArrowDown", "ArrowLeft"].includes(key)) return false;
+    const controls = Array.from(
+      root.querySelectorAll<HTMLButtonElement>(
+        ".temple-choice:not(:disabled), .letter-tile:not(:disabled)",
+      ),
+    );
+    if (!controls.length) return false;
+    const current = controls.indexOf(document.activeElement as HTMLButtonElement);
+    if (current < 0) {
+      controls[0].focus();
+      return true;
+    }
+    const rect = controls[current].getBoundingClientRect();
+    const [dx, dy] = {
+      ArrowUp: [0, -1],
+      ArrowRight: [1, 0],
+      ArrowDown: [0, 1],
+      ArrowLeft: [-1, 0],
+    }[key]!;
+    const candidates = controls
+      .map((button, i) => {
+        if (i === current) return { button, i, score: Number.POSITIVE_INFINITY };
+        const other = button.getBoundingClientRect();
+        const vx = other.x + other.width / 2 - (rect.x + rect.width / 2);
+        const vy = other.y + other.height / 2 - (rect.y + rect.height / 2);
+        const primary = vx * dx + vy * dy;
+        const cross = Math.abs(vx * dy - vy * dx);
+        return { button, i, score: primary > 0 ? primary + cross * 2.5 : Number.POSITIVE_INFINITY };
+      })
+      .sort((a, b) => a.score - b.score);
+    (candidates[0].score < Number.POSITIVE_INFINITY
+      ? candidates[0].button
+      : controls[(current + 1) % controls.length]
+    ).focus();
+    return true;
+  }
+
   function speak() {
     setVoiceError(false);
     narrate(activity.speech, () => setVoiceError(true));
@@ -85,7 +141,7 @@ export function TempleGame({
   }
 
   return (
-    <section className="temple-game" aria-labelledby="temple-title">
+    <section ref={templeRoot} className="temple-game" aria-labelledby="temple-title">
       <header className="temple-heading">
         <button className="round-back" aria-label="Voltar ao mapa" onClick={onExit}>
           <Icon name="map" />
@@ -140,16 +196,47 @@ export function TempleGame({
             <span className="eyebrow">{activity.skill}</span>
             <span className="temple-seal-count"><Icon name="star" size={15} /> {completed.length} / 5</span>
           </div>
-          {activity.interaction === "letters" ? (
+          <p className="temple-keyboard-tip">Setas navegam · Enter escolhe</p>
+          {activity.interaction === "multiple" ? (
             <>
-              <div className="word-picture"><TempleGlyph token={{ id: "ball", label: "bola", glyph: "ball" }} /><span>BOLA</span></div>
-              <p className="temple-prompt">Monte a palavra com as letras.</p>
-              <div className="letter-slots" aria-label="Letras escolhidas">
+              <p className="temple-prompt">Toque nas palavras escolhidas.</p>
+              <div className="temple-token-row multiple-choice-grid">
+                {tokens.map((token) => (
+                  <button
+                    key={token.id}
+                    className={`temple-choice ${answer.includes(token.id) ? "chosen" : ""}`}
+                    aria-pressed={answer.includes(token.id)}
+                    onClick={() => toggleToken(token.id)}
+                    aria-label={`Escolher ${token.label}`}
+                  >
+                    {token.glyph && <TempleGlyph token={token} />}
+                    <span>{token.label}</span>
+                  </button>
+                ))}
+              </div>
+              <button className="temple-check" disabled={!answer.length || solved} onClick={() => submit(answer)}>
+                Conferir palavras
+              </button>
+            </>
+          ) : activity.interaction === "letters" ? (
+            <>
+              {activity.picture && <div className="word-picture"><TempleGlyph token={activity.picture} /><span>O QUE É?</span></div>}
+              {activity.letterPattern && (
+                <div className="missing-word letter-pattern" aria-label={`Palavra incompleta ${activity.letterPattern}`}>
+                  {activity.letterPattern.split("").map((letter, i) => {
+                    if (letter !== "_") return <b key={i}>{letter}</b>;
+                    const token = activity.tokens.find((item) => item.id === answer[activity.letterPattern!.slice(0, i + 1).split("").filter((part) => part === "_").length - 1]);
+                    return <span key={i}>{token?.label ?? "?"}</span>;
+                  })}
+                </div>
+              )}
+              <p className="temple-prompt">{activity.prompt}</p>
+              {!activity.letterPattern && <div className="letter-slots" aria-label="Letras escolhidas">
                 {activity.correct.map((_, i) => {
                   const token = activity.tokens.find((item) => item.id === answer[i]);
                   return <span key={i} className={token ? "filled" : ""}>{token?.label ?? "·"}</span>;
                 })}
-              </div>
+              </div>}
               <div className="temple-token-row letter-pool">
                 {tokens.map((token) => (
                   <button key={token.id} className="letter-tile" disabled={solved || answer.includes(token.id)} onClick={() => addToken(token.id)} aria-label={`Usar letra ${token.label}`}>
@@ -182,9 +269,8 @@ export function TempleGame({
             </>
           ) : (
             <>
-              {activity.id === 2 && <div className="missing-word" aria-label="Palavra gato com a primeira letra faltando"><span>?</span><b>ATO</b></div>}
-              {activity.id === 4 && <div className="sentence-stone">O gato dorme no tapete.</div>}
-              <p className="temple-prompt">{activity.id === 2 ? "Qual letra faz esse som?" : "Toque na resposta."}</p>
+              {activity.id === 4 && <div className="sentence-stone">A semente recebeu água e sol.</div>}
+              <p className="temple-prompt">Toque na resposta.</p>
               <div className={`temple-token-row choice-grid ${activity.id === 2 ? "letter-choices" : "word-choices"}`}>
                 {tokens.map((token) => (
                   <button key={token.id} className="temple-choice" disabled={solved} onClick={() => submit([token.id])} aria-label={`Escolher ${token.label}`}>

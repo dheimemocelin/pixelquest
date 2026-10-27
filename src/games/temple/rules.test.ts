@@ -11,7 +11,9 @@ describe("Temple activities", () => {
   );
 
   it("does not accept a wrong choice or partial sequence", () => {
-    expect(isCorrect(activities[0], ["sapo"])).toBe(false);
+    expect(isCorrect(activities[0], ["bola"])).toBe(false);
+    expect(isCorrect(activities[0], ["boca", "bola"])).toBe(true);
+    expect(isCorrect(activities[0], ["boca", "lua"])).toBe(false);
     expect(isCorrect(activities[4], ["key"])).toBe(false);
     expect(isCorrect(activities[4], ["door", "key"])).toBe(false);
   });
@@ -22,9 +24,15 @@ describe("Temple activities", () => {
     expect(isCorrect(word, ["b", "a", "l", "o"])).toBe(false);
   });
 
+  it("accepts multiple correct sound matches regardless of selection order", () => {
+    expect(isCorrect(activities[0], ["boca", "bola"])).toBe(true);
+    expect(isCorrect(activities[0], ["bola", "sapo"])).toBe(false);
+  });
+
   it("offers fewer choices when the player needs extra support", () => {
     expect(availableTokens(activities[0], true).map((token) => token.id)).toEqual([
       "bola",
+      "boca",
       "sapo",
     ]);
     expect(availableTokens(activities[2], true)).toHaveLength(4);

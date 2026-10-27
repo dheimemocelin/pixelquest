@@ -18,6 +18,8 @@ async function enter(page: Page) {
     .click();
   await page.getByRole("button", { name: "Entrar na floresta" }).click();
   await expect(page.locator("canvas")).toHaveCount(1);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight)).toBe(true);
+  expect((await page.locator(".board-wrap").boundingBox())?.height ?? 0).toBeGreaterThan(80);
 }
 test("complete the three adventures through the real interface", async ({
   page,
@@ -47,7 +49,7 @@ test("complete the three adventures through the real interface", async ({
   await page
     .getByRole("button", { name: "Fase 1: Primeiros Passos", exact: true })
     .click();
-  await add(page, "RR");
+  await add(page, "RRDD");
   await page.getByRole("button", { name: "EXECUTAR", exact: true }).click();
   await expect(
     page.getByText("Você encontrou o tesouro!", { exact: true }),
@@ -121,8 +123,11 @@ test("editing, hints, restart during playback, help and narration fallback", asy
   await add(page, "R");
   await page.getByRole("button", { name: "EXECUTAR", exact: true }).click();
   await expect(
-    page.getByText("Você encontrou o tesouro!", { exact: true }),
+    page.getByText("Quase lá! Você pode acrescentar ou mudar comandos."),
   ).toBeVisible();
+  await add(page, "DD");
+  await page.getByRole("button", { name: "EXECUTAR", exact: true }).click();
+  await expect(page.getByText("Você encontrou o tesouro!", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Como jogar", exact: true }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
@@ -142,4 +147,17 @@ test("editing, hints, restart during playback, help and narration fallback", asy
   await page
     .getByRole("button", { name: "Desativar música e efeitos" })
     .click();
+});
+
+test("keyboard arrows build and run the route", async ({ page }) => {
+  await enter(page);
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowRight");
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowDown");
+  await expect(
+    page.getByRole("list", { name: "Sequência de comandos" }).getByRole("button"),
+  ).toHaveCount(4);
+  await page.getByRole("button", { name: "EXECUTAR", exact: true }).click();
+  await expect(page.getByText("Você encontrou o tesouro!", { exact: true })).toBeVisible();
 });
