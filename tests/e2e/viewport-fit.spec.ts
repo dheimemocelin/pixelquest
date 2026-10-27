@@ -10,6 +10,10 @@ test("adventure and temple screens fit the viewport without page scrolling", asy
     await page.setViewportSize(viewport);
     await page.goto("/");
     await expect(page.getByRole("heading", { name: /Pequeno herói/ })).toBeVisible();
+    await expectNoPageScroll(page);
+    const playButton = await page.locator(".home-stage button.primary.jumbo").boundingBox();
+    expect(playButton).toBeTruthy();
+    expect(playButton!.y + playButton!.height).toBeLessThanOrEqual(viewport.height);
 
     await page.locator(".home-stage button.primary.jumbo").click();
     await expect(page.getByRole("button", { name: "Entrar na floresta" })).toBeVisible();

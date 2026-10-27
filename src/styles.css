@@ -1298,6 +1298,25 @@ dialog button:focus-visible {
   flex-direction: column;
   overflow: hidden;
 }
+.app.page-home {
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+.app.page-home > .topbar { flex: 0 0 var(--topbar-height); }
+.page-home > main {
+  flex: 1 1 auto;
+  width: 100%;
+  height: calc(100dvh - var(--topbar-height));
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.page-home .home-stage { height: 100%; min-height: 0; }
 .page-game > main,
 .page-temple > main {
   flex: 1 1 auto;
@@ -1584,4 +1603,17 @@ dialog button:focus-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .celebration-stars button.lit { animation: none; }
+}
+@media (max-width: 760px) {
+  .page-home .hero-copy { padding-top: clamp(18px, 5vh, 38px); }
+  .page-home .hero-name { top: auto; right: 7%; bottom: 83px; left: auto; }
+}
+@media (max-width: 760px) and (max-height: 700px) {
+  .page-home .hero-copy { padding-top: 10px; }
+  .page-home .hero-copy h1 { margin-top: 12px; font-size: clamp(36px, 10vw, 44px); }
+  .page-home .slogan { margin-top: 8px; }
+  .page-home .hero-description { margin: 9px 0 12px; line-height: 1.45; }
+  .page-home .hero-copy .text-button { min-height: 37px; margin-top: 2px; }
+  .page-home .hero-name { bottom: 56px; }
+  .page-home .home-bottom { padding-top: 5px; padding-bottom: 5px; }
 }
