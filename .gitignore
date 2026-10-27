@@ -37,3 +37,7 @@ service-account*.json
 data/
 backups/
 private/
+
+# Resultados locais de testes de navegador
+test-results/
+playwright-report/
