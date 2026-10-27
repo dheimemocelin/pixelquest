@@ -54,6 +54,10 @@ test("complete the three adventures through the real interface", async ({
   await expect(
     page.getByText("Você encontrou o tesouro!", { exact: true }),
   ).toBeVisible();
+  await expect(page.getByText("Parabéns, aventureiro!")).toBeVisible();
+  const celebrationStars = page.getByRole("group", { name: "Estrelas da comemoração" });
+  for (const star of await celebrationStars.getByRole("button").all()) await star.click();
+  await expect(page.getByText("Que brilho incrível! Você conseguiu! Nilo comemora com você.")).toBeVisible();
   await expect(page.getByRole("button", { name: "Próxima fase" })).toBeVisible();
   await page.getByRole("button", { name: "Próxima fase" }).click();
   await add(page, "RRUURR");

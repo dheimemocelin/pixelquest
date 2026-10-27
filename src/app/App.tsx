@@ -20,6 +20,7 @@ export default function App() {
   const [viewId, setViewId] = useState(0);
   const [levelIndex, setLevelIndex] = useState(0);
   const [completed, setCompleted] = useState<number[]>([]);
+  const [celebratedStars, setCelebratedStars] = useState<number[]>([]);
   const [commands, setCommands] = useState<Command[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
   const [active, setActive] = useState(-1);
@@ -104,6 +105,7 @@ export default function App() {
     setRunning(false);
     setActive(-1);
     setCommands([]);
+    setCelebratedStars([]);
     setSelected(null);
     setMessage("");
     setHints(0);
@@ -120,6 +122,7 @@ export default function App() {
     setRunning(false);
     setActive(-1);
     setCommands([]);
+    setCelebratedStars([]);
     setSelected(null);
     setState(initialState(level));
     setMessage("Um novo começo. Vamos tentar?");
@@ -130,6 +133,7 @@ export default function App() {
     if (running || !commands.length || !scene.current) return;
     const id = ++runId.current;
     setRunning(true);
+    setCelebratedStars([]);
     setSelected(null);
     setMessage("Observe Nilo seguir seus comandos.");
     setState(initialState(level));
@@ -544,15 +548,47 @@ export default function App() {
                     {message || "Pode experimentar. Toda tentativa ensina!"}
                   </p>
                   {state.won && (
-                    <button
-                      className="primary"
-                      onClick={() =>
-                        levelIndex < 2 ? go("game", levelIndex + 1) : go("map")
-                      }
-                    >
-                      {levelIndex < 2 ? "Próxima fase" : "Voltar ao mapa"}{" "}
-                      <span>→</span>
-                    </button>
+                    <>
+                      <div className="celebration-copy">
+                        <strong>Parabéns, aventureiro!</strong>
+                        <span>Nilo chegou ao tesouro. Toque nas estrelas para comemorar!</span>
+                      </div>
+                      <div className="celebration-stars" role="group" aria-label="Estrelas da comemoração">
+                        {[0, 1, 2].map((star) => {
+                          const lit = celebratedStars.includes(star);
+                          return (
+                            <button
+                              key={star}
+                              className={lit ? "lit" : ""}
+                              type="button"
+                              aria-label={`Estrela ${star + 1}`}
+                              aria-pressed={lit}
+                              onClick={() => {
+                                if (lit) return;
+                                setCelebratedStars((current) => [...current, star]);
+                                sound("key");
+                              }}
+                            >
+                              <Icon name="star" size={28} />
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {celebratedStars.length === 3 && (
+                        <p className="celebration-cheer" role="status">
+                          Que brilho incrível! Você conseguiu! Nilo comemora com você.
+                        </p>
+                      )}
+                      <button
+                        className="primary"
+                        onClick={() =>
+                          levelIndex < 2 ? go("game", levelIndex + 1) : go("map")
+                        }
+                      >
+                        {levelIndex < 2 ? "Próxima fase" : "Voltar ao mapa"}{" "}
+                        <span>→</span>
+                      </button>
+                    </>
                   )}
                 </div>
               </aside>
