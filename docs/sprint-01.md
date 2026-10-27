@@ -17,7 +17,7 @@ perda de pontos ou limite de tentativas. Dicas em três níveis permanecem dispo
 ## Arquitetura
 
 - `src/app/App.tsx`: navegação, estado da sessão, sequência editável e feedback.
-- `src/games/hero/types.ts`: contratos das fases, comandos e estados.
+- `src/games/hero/types.ts` e `direction.ts`: comandos, direções e estados.
 - `src/games/hero/levels.ts`: três fases definidas por dados.
 - `src/games/hero/rules.ts`: transições puras, colisões, chave e vitória.
 - `src/engine/AdventureScene.ts`: tabuleiro e execução animada com Phaser 3.
@@ -30,9 +30,11 @@ perda de pontos ou limite de tentativas. Dicas em três níveis permanecem dispo
 A lógica determina cada passo antes de animar. A interface destaca o comando em
 execução e impede edições enquanto Nilo anda. Reiniciar e navegar cancelam a
 execução atual. Toda execução começa no ponto inicial; um erro preserva o plano
-para edição. Reiniciar limpa o plano. Viradas não deslocam o personagem.
+para edição. Reiniciar limpa o plano. Cada comando desloca Nilo uma casa na direção selecionada.
 
-A seta aos pés de Nilo e o texto de direção indicam sua orientação. O tabuleiro
+A seta aos pés de Nilo e o texto de direção indicam sua orientação. O jogador
+seleciona movimentos absolutos para frente, para trás, esquerda e direita no
+direcional; cada movimento entra na sequência antes de executar. O tabuleiro
 visual tem descrição textual disponível. Botões nativos suportam teclado e toque;
 a ajuda usa um diálogo modal com Escape. `prefers-reduced-motion` reduz deslocamentos
 animados e desativa partículas. Não há autoplay de som.
@@ -55,7 +57,8 @@ Phaser fica em um chunk separado (~318 KB gzip). O bundler avisa que ele excede
 
 - `npm test`: quatro direções, colisão, execução, chave, vitória e reset.
 - `npm run build`: TypeScript estrito e bundle Vite.
-- `npm run test:e2e`: Chromium, desktop 1440 × 1000 e tablet 820 × 1180.
+- `npm run test:e2e`: Chromium, desktop 1440 × 1000, tablet 820 × 1180 e celular
+  390 × 844. O servidor de teste usa `127.0.0.1:5174`, separado da prévia em 5173.
 - E2E: fases completas, bloqueio sem chave, edição e remoção de passos, dicas,
   reinício, repetição da fase atual, diálogo, áudio e alternativa à voz.
 - Console e exceções são verificados no percurso completo. Capturas e traces ficam

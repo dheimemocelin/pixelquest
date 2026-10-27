@@ -35,8 +35,9 @@ O Templo das Palavras continua planejado.
 3. **A Chave Perdida:** coletar a chave antes de acessar o tesouro.
 
 As setas para frente, para trás, direita e esquerda movem Nilo uma casa na
-direção escolhida. Selecione um passo para movê-lo ou retirá-lo. Cada execução começa do
-ponto inicial; um erro mantém o plano para correção. Reiniciar limpa o plano.
+direção escolhida e entram na sequência de movimentos. Selecione um passo para
+reordená-lo ou retirá-lo. Cada execução começa do ponto inicial; um erro mantém
+o plano para correção. Reiniciar limpa o plano.
 Há dicas graduais, tentativas ilimitadas e repetição das fases concluídas.
 O progresso dura apenas enquanto a página está aberta.
 
@@ -79,8 +80,9 @@ npx playwright install chromium
 npm run test:e2e         # inicia e encerra seu próprio Vite em loopback
 ```
 
-Para E2E, encerre qualquer Vite que esteja usando a porta 5173. Chromium precisa
-de suas bibliotecas de sistema no Linux; veja os limites e alternativas no
+Os testes E2E iniciam seu próprio servidor em `127.0.0.1:5174`; a porta do jogo
+em `5173` pode continuar em uso. Chromium precisa de suas bibliotecas de sistema
+no Linux; veja os limites e alternativas no
 [guia da sprint](docs/sprint-01.md). Não há segredos ou `.env` obrigatórios.
 
 **Servidor remoto/T3 Code:** veja o [procedimento com túnel SSH](docs/sprint-01.md#visualização-remota-segura).
@@ -115,7 +117,7 @@ docs/                Proveniência, revisão inicial e guia da sprint
 - [x] Engineering OS, documentação bilíngue e licença MIT.
 - [x] Tela inicial, mapa, personagem e floresta originais.
 - [x] Três fases jogáveis com comandos, chave, dicas e feedback.
-- [x] Testes de regras e jornadas em desktop/tablet; build de produção.
+- [x] Testes de regras e jornadas em desktop, tablet e celular; build de produção.
 - [ ] Validar a Sprint 01 com o responsável e a criança.
 - [ ] Expandir A Jornada do Herói com novos desafios e repetição.
 - [ ] Implementar O Templo das Palavras.
