@@ -21,11 +21,17 @@ test("adventure and temple screens fit the viewport without page scrolling", asy
     await page.getByRole("button", { name: "Entrar na floresta" }).click();
     await expect(page.getByRole("heading", { name: "Primeiros Passos" })).toBeVisible();
     await expectNoPageScroll(page);
+    if (viewport.width <= 760) {
+      expect((await page.locator(".board-wrap").boundingBox())?.height ?? 0).toBeGreaterThan(110);
+    }
 
     await page.getByRole("button", { name: "Voltar ao mapa" }).click();
     await page.getByRole("button", { name: "Entrar no templo" }).click();
     await expect(page.getByRole("heading", { name: "Os Sons Mágicos" })).toBeVisible();
     await expectNoPageScroll(page);
+    if (viewport.width <= 760) {
+      expect((await page.locator(".temple-board").boundingBox())?.height ?? 0).toBeGreaterThan(110);
+    }
   }
 });
 
