@@ -6,15 +6,22 @@ jogos nem adicionam dependências à aplicação.
 ## Origem e licença
 
 - Repositório: https://github.com/dheimemocelin/skill
-- Revisão: `ef73a8cd36134fe50be4c6077113f481faacca52`.
-- [Instruções oficiais de instalação](https://github.com/dheimemocelin/skill/blob/ef73a8cd36134fe50be4c6077113f481faacca52/README.md).
-- [Adaptador Codex](https://github.com/dheimemocelin/skill/blob/ef73a8cd36134fe50be4c6077113f481faacca52/adapters/codex/README.md).
+- Revisão atualizada: `c5a80af9762ac90b3436279b57d18fe4fdd815ec` (2026-10-28).
+- [Instruções oficiais de instalação](https://github.com/dheimemocelin/skill/blob/c5a80af9762ac90b3436279b57d18fe4fdd815ec/README.md).
+- [Adaptador Codex](https://github.com/dheimemocelin/skill/blob/c5a80af9762ac90b3436279b57d18fe4fdd815ec/adapters/codex/README.md).
 - [Licença MIT original](LICENSE) e [atribuições da origem](SOURCES.md).
 
-As sete skills foram copiadas sem alterações. Os três adaptadores foram gerados
-pelo script oficial da mesma revisão, sem alterações manuais. A licença MIT da
-origem permite redistribuição, preservados seu copyright e texto de permissão.
-Ferramentas opcionais mencionadas pelas skills não estão incluídas.
+As sete skills foram atualizadas a partir da origem e os três adaptadores Codex
+foram regenerados pelo script oficial da revisão indicada. A skill `git-quality`
+inclui a referência opcional de entrega de PR publicada pela origem. A licença MIT
+permite a redistribuição, preservados seu copyright e texto de permissão.
+
+O Harness Lite v1 também está disponível na origem, mas é uma ferramenta CLI
+Python separada, não uma skill, agente ou dependência do PixelQuest. Para usá-lo,
+clone o repositório de skills e execute os comandos a partir da raiz desse clone,
+apontando `--workspace` para o PixelQuest. Ele requer Python 3.11 ou superior,
+usa somente a biblioteca padrão e grava o estado local em `.harness/`; não instala
+dependências no app nem chama provedores de IA.
 
 ## Uso
 
@@ -46,7 +53,9 @@ antes de copiar `.agents/skills/` e `.codex/agents/` gerados. Preservar instruç
 locais, licença e atribuições, e registrar a nova revisão. Não sobrescrever
 configurações existentes nem instalar cópias globais duplicadas.
 
-Na integração, a validação oficial e os seis testes da origem passaram. A descoberta
-pelo Codex reconheceu as sete skills no escopo do projeto. A execução dos papéis
-como subagentes não foi testada. Essas verificações não substituem testes dos jogos,
-que ainda não foram implementados.
+Na atualização de 2026-10-28, o validador oficial reconheceu as sete skills e os
+38 testes da origem passaram com Python 3.12.3. O Harness também completou uma
+verificação somente de leitura do README no workspace PixelQuest. Os arquivos de
+skill e os três TOMLs de agente foram regenerados e revisados; a disponibilidade
+em outros clientes ou a execução dos papéis como subagentes dependem do ambiente.
+Essas verificações não substituem os testes do jogo.
